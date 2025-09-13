@@ -13,3 +13,8 @@ MCP
 =====
 https://www.youtube.com/watch?v=UkITNsHfdyM
 
+LangGraph
+==========
+https://github.com/codebasics/langgraph-crash-course
+https://www.youtube.com/watch?v=eHfn9afPsQY
+https://www.youtube.com/watch?v=Z5S5eVHFH9I
