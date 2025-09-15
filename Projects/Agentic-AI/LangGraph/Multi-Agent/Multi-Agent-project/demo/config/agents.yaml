@@ -1,0 +1,24 @@
+agents:
+  weather:
+    mcp_servers:
+      - http://localhost:8000/mcp
+      - http://localhost:8001/mcp
+    tools:
+      - tools.weather:get_city_weather
+      - tools.weather:get_country_weather
+    llm: openai
+
+  pollution:
+    mcp_servers:
+      - http://localhost:8002/mcp
+      - http://localhost:8003/mcp
+    tools:
+      - tools.pollution:get_city_pollution
+      - tools.pollution:get_country_pollution
+    llm: gemini
+
+  parent:
+    agents: [weather, pollution]
+    llm: openai
+    protocol: a2a
+    features: [RAG, React, ChainThought]

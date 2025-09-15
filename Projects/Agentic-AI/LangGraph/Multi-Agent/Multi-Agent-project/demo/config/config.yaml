@@ -1,0 +1,29 @@
+agents:
+  weather:
+    mcp_servers:
+      - http://localhost:8000/mcp
+      - http://localhost:8001/mcp
+    tools: ["get_city", "get_country"]
+    llm:
+      provider: openai
+      model: gpt-3.5-turbo
+      api_key: ${OPENAI_API_KEY}
+
+  pollution:
+    mcp_servers:
+      - http://localhost:8002/mcp
+      - http://localhost:8003/mcp
+    tools: ["get_city_pollution", "get_country_pollution"]
+    llm:
+      provider: gemini
+      model: gemini-pro
+      api_key: ${GEMINI_API_KEY}
+
+  parent:
+    llm:
+      provider: openai
+      model: gpt-4
+      api_key: ${OPENAI_API_KEY}
+    agents: ["weather", "pollution"]
+    protocol: A2A
+    features: ["RAG", "React", "ChainOfThought"]
