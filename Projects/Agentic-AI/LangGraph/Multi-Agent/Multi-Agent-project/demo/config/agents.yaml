@@ -15,7 +15,7 @@ agents:
     tools:
       - tools.pollution:get_city_pollution
       - tools.pollution:get_country_pollution
-    llm: gemini
+    llm: openai
 
   parent:
     agents: [weather, pollution]

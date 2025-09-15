@@ -1,7 +1,7 @@
 langgraph
 langchain
 langchain-openai
-langchain-google-genai
+# langchain-google-genai
 langchain-mcp-adapters
 fastmcp
 httpx

@@ -1,6 +1,15 @@
 import asyncio
 from agent_factory import load_config, build_agent
 from rag.vectorstore import setup_vectorstore
+import os
+from dotenv import load_dotenv
+import nest_asyncio
+
+# Load API keys and other environment variables
+load_dotenv()
+
+# Allow nested event loops (fixes RuntimeError in Jupyter/interactive environments)
+nest_asyncio.apply()
 
 async def main():
     config = load_config()
@@ -20,5 +29,13 @@ async def main():
     print("🌦 Weather Agent:", response_weather["messages"][-1].content)
     print("🏭 Pollution Agent:", response_pollution["messages"][-1].content)
 
+# if __name__ == "__main__":
+#     asyncio.run(main())
 if __name__ == "__main__":
-    asyncio.run(main())
+    try:
+        asyncio.run(main())
+    except RuntimeError as e:
+        # fallback for already running event loop
+        print("⚠️ asyncio.run() failed, using alternative loop:", e)
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(main())
