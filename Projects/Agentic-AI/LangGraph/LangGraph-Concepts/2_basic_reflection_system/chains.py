@@ -3,7 +3,6 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_openai import ChatOpenAI
 import os
 from dotenv import load_dotenv
-from dotenv import load_dotenv
 import os
 
 dotenv_path = os.path.abspath(os.path.join(os.path.dirname(__file__), r"../../../../../..", ".env"))
@@ -13,7 +12,7 @@ load_dotenv(dotenv_path=dotenv_path)
 
 print("OPENAI_API_KEY:", os.environ.get("OPENAI_API_KEY"))
 print("GEMINI_API_KEY:", os.environ.get("GEMINI_API_KEY"))
-# os.environ["OPENAI_API_KEY"] = os.environ.get("OPENAI_API_KEY",)
+os.environ["OPENAI_API_KEY"] = os.environ.get("OPENAI_API_KEY",)
 generation_prompt = ChatPromptTemplate.from_messages(
     [
         (
