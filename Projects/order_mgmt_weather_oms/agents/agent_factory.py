@@ -5,11 +5,12 @@ from langgraph.prebuilt import ToolNode, tools_condition
 from agents.state import State
 from tools.weather_tools import get_weather
 from tools.order_tools import place_order
+from config import OPENAI_API_KEY, DEFAULT_MODEL
 
 def create_agent(memory):
     tools = [get_weather, place_order]
     
-    llm = ChatOpenAI(model="gpt-4o").bind_tools(tools)
+    llm = ChatOpenAI(model=DEFAULT_MODEL).bind_tools(tools)
 
     def chatbot_node(state: State):
         msg = llm.invoke(state["messages"])

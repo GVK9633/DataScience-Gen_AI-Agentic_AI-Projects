@@ -1,10 +1,7 @@
-from config import OPENAI_API_KEY, DEFAULT_MODEL
+# main.py
 from mcp import get_memory
 from agents.agent_factory import create_agent
 from langgraph.types import Command
-
-print("API Key:", OPENAI_API_KEY)
-print("Model:", DEFAULT_MODEL)
 
 if __name__ == "__main__":
     memory = get_memory()
