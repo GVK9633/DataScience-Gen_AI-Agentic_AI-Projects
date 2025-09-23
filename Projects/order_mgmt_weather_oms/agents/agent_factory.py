@@ -25,8 +25,39 @@ def create_agent(memory):
     builder.add_edge("tools", "chatbot")
     builder.add_edge("chatbot", END)
     
-    # Visualize the graph
-    # print(builder.get_graph().draw_mermaid())
-    # builder.get_graph().print_ascii()
+    # # Visualize the graph
+    # print("\n=== ASCII Graph ===")
+    # builder.print_ascii()
+
+    # print("\n=== Mermaid Graph ===")
+    # print(builder.draw_mermaid())
     
-    return builder.compile(checkpointer=memory)
+    # return builder.compile(checkpointer=memory)
+    graph = builder.compile(checkpointer=memory)
+
+   # get the drawable graph object
+    drawable = graph.get_graph()
+
+    # Mermaid text
+    print("\n=== Mermaid =====")
+    print(drawable.draw_mermaid())
+
+    # PNG image (if dependencies exist)
+    try:
+        from IPython.display import Image, display
+        img = drawable.draw_mermaid_png()
+        # display(Image(img))
+        with open("graph.png", "wb") as f:
+            f.write(img)
+        print("Graph saved as graph.png — open it in VS Code Explorer.")
+    except Exception as e:
+        print("Could not draw PNG:", e)
+
+    # ASCII (if supported)
+    if hasattr(drawable, "draw_ascii"):
+        print("\n=== ASCII =====")
+        print(drawable.draw_ascii())
+    else:
+        print("ASCII draw not supported in this version")
+
+    return graph
