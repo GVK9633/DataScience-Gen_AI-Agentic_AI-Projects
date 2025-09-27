@@ -1,37 +1,67 @@
 from config.settings import AGENT_CONFIG
 from openai import OpenAI
+from langgraph.graph import StateGraph, END
+from agents.agent_factory import AgentFactory
+import os
+import json
 
-def get_llm_client():
-    llm_conf = AGENT_CONFIG["parent"]["llm"]
-    provider = llm_conf.get("provider", "openai")
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-    if provider == "openai":
-        return OpenAI(), llm_conf["model"]
+class AgentState(dict):
+    query: str
+    targets: dict      # e.g., {"weather": "Paris"}
+    results: dict
+    final: str
 
-    # 🔧 Future: extend here for Gemini/Anthropic
-    raise ValueError(f"Unsupported LLM provider: {provider}")
-
-def llm_router(prompt: str) -> str:
+# --- LLM classification ---
+def classify_query(state: AgentState) -> AgentState:
+    prompt = f"""
+    Extract which agents to call and their target from this query.
+    Available agents: {AGENT_CONFIG['parent']['agents']}
+    User query: {state['query']}
+    Respond strictly in JSON, e.g. {{"weather": "Paris", "pollution": "Delhi"}}
     """
-    Use the configured LLM to decide which agent to call (weather or pollution).
-    """
-    client, model = get_llm_client()
-
-    routing_prompt = f"""
-    You are a router. Decide whether this query is about weather, pollution, or none.
-
-    Query: "{prompt}"
-
-    Respond with only one word: "weather", "pollution", or "end".
-    """
-
     resp = client.chat.completions.create(
-        model=model,
-        messages=[{"role": "user", "content": routing_prompt}],
-        max_tokens=1,
+        model=AGENT_CONFIG["parent"]["llm_model"],
+        messages=[{"role": "user", "content": prompt}]
     )
+    try:
+        parsed = json.loads(resp.choices[0].message.content)
+    except Exception:
+        parsed = {}
+    state["targets"] = parsed
+    state["results"] = {}
+    return state
 
-    decision = resp.choices[0].message.content.strip().lower()
-    if decision not in ["weather", "pollution", "end"]:
-        return "end"
-    return decision
+# --- Call agent node ---
+def call_agent(agent_name: str):
+    def node(state: AgentState) -> AgentState:
+        target = state["targets"].get(agent_name)
+        if target:
+            agent = AgentFactory.create_agent(agent_name)
+            state["results"][agent_name] = agent.run(target)
+        return state
+    return node
+
+# --- Merge results ---
+def merge_results(state: AgentState) -> AgentState:
+    if not state["results"]:
+        state["final"] = "❌ No results found."
+    else:
+        state["final"] = " | ".join(f"{k}: {v}" for k, v in state["results"].items())
+    return state
+
+# --- Build graph ---
+workflow = StateGraph(AgentState)
+workflow.add_node("classify", classify_query)
+workflow.set_entry_point("classify")
+
+for agent_name in AGENT_CONFIG["parent"]["agents"]:
+    workflow.add_node(agent_name, call_agent(agent_name))
+    workflow.add_edge("classify", agent_name)
+    workflow.add_edge(agent_name, "merge")
+
+workflow.add_node("merge", merge_results)
+workflow.add_edge("merge", END)
+
+app = workflow.compile()

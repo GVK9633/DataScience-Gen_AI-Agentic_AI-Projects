@@ -20,12 +20,7 @@ AGENT_CONFIG = {
         "mcp_servers": ["pollution-mcp-1"]
     },
     "parent": {
-        "llm": {
-            "provider": "openai",       # can switch to "gemini", "anthropic", etc.
-            "model": "gpt-4o-mini"      # configurable LLM model
-        },
         "agents": ["weather", "pollution"],
-        "protocol": "A2A",
-        "features": ["RAG", "React", "ChainOfThought"]
+        "llm_model": "gpt-4o-mini",
     }
 }
