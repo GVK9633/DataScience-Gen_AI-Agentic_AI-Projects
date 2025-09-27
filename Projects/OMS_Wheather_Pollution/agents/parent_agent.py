@@ -37,11 +37,11 @@ def classify_query(state: AgentState) -> AgentState:
 
 # --- Call agent node ---
 def call_agent(agent_name: str):
-    def node(state: AgentState) -> AgentState:
+    async def node(state: AgentState) -> AgentState:
         target = state["targets"].get(agent_name)
         if target:
             agent = AgentFactory.create_agent(agent_name)
-            state["results"][agent_name] = agent.run(target)
+            state["results"][agent_name] = await agent.run(target)
         return state
     return node
 

@@ -14,10 +14,12 @@ class DynamicAgent:
         self.cfg = AGENT_CONFIG[name]
         self.tools = [TOOL_MAP[t] for t in self.cfg.get("tools", [])]
 
-    def run(self, target: str):
+    # Make run async
+    async def run(self, target: str):
         results = []
+        # Run each tool asynchronously
         for tool in self.tools:
-            res = tool(target)
+            res = await tool(target)  # <- await coroutine
             results.append(res)
         return " | ".join(results)
 
