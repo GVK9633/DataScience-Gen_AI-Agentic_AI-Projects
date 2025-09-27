@@ -4,13 +4,15 @@ from langgraph.graph import StateGraph, END
 from agents.agent_factory import AgentFactory
 import os
 import json
+from typing_extensions import Annotated
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 class AgentState(dict):
     query: str
     targets: dict      # e.g., {"weather": "Paris"}
-    results: dict
+    # Mark 'results' as Annotated to allow concurrent updates
+    results: Annotated[dict, "concurrent"]
     final: str
 
 # --- LLM classification ---
