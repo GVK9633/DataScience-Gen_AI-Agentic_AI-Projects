@@ -1,115 +1,108 @@
-# from fastmcp.client.client import MCPClient
+"""
+weather_client.py
 
-# async def fetch_weather(location: str) -> str:
-#     async with MCPClient("weather-mcp-1") as client:
-#         result = await client.call("get_weather", location=location)
-#         return result.content
+Asynchronous client module to fetch weather information from a local MCP weather server.
 
-# import asyncio
-# from fastmcp.client import Client  # fastmcp client
+This module connects to a `weather_server.py` MCP server via stdio, initializes
+a client session, lists available tools, and invokes the `get_weather` tool for
+a given location. The server response is expected to be in JSON format containing
+weather information.
 
-# async def fetch_weather(location: str):
-#     async with Client("weather-mcp-1") as client:
-#         result = await client.call("get_weather", location=location)
-#         return result["content"]
-
-# if __name__ == "__main__":
-#     asyncio.run(fetch_weather("London"))
-
-# tools/weather_tools.py
-# mcp_clients/weather_client.py
-#########################################
-# import asyncio
-# from mcp.client.stdio import stdio_client
-# from mcp.server import FastMCP
-
-# # define the server object
-# weather_mcp = FastMCP(name="weather-mcp-1", command=["python", "mcp_servers/weather_server.py"])
-
-# async def fetch_weather(location: str) -> str:
-#     """Call the Weather MCP server tool"""
-#     async with stdio_client(weather_mcp) as (client, reader, writer):
-#         await client.start()
-#         result = await client.call_tool("get_weather", {"location": location})
-#         return result.content
-
-# if __name__ == "__main__":
-#     async def main():
-#         res = await fetch_weather("Paris")
-#         print("🌤️ Weather in Paris:", res)
-
-#     asyncio.run(main())
-
-##########################################
-
-# import asyncio
-# from mcp.client.stdio import stdio_client, StdioServerParameters
-
-# async def fetch_weather(location: str) -> str:
-#     # Create a server parameters object
-#     server_params = StdioServerParameters(
-#         command="python",                     # Python executable
-#         # args=["mcp_servers/weather_server.py"] 
-#         args=["../mcp_servers/weather_server.py"]  # server script
-#     )
-#     # Use stdio_client to manage the server process
-#     async with stdio_client(server_params) as client:
-#         await client.start()
-#         result = await client.call_tool("get_weather", {"location": location})
-#         return result["content"]
-    
-# if __name__ == "__main__":
-#     async def main():
-#         res = await fetch_weather("Paris")
-#         print("🌤️ Weather in Paris:", res)
-
-#     asyncio.run(main())
-###################################
-# import asyncio
-# from mcp import ClientSession, StdioServerParameters
-# from mcp.client.stdio import stdio_client
-
-# async def fetch_weather(location: str) -> str:
-#     server_params = StdioServerParameters(
-#         command="python",
-#         args=["../mcp_servers/weather_server.py"]
-#         # args=["/Users/gvijaykumarachary/Desktop/MyComputer/E-Drive/DataScience/Repos/datascience-projects/DataScience-Gen_AI-Agentic_AI-Projects/Projects/OMS_Wheather_Pollution/mcp_servers/weather_server.py"]
-#     )
-    
-#     async with stdio_client(server_params) as (read, write):
-#         async with ClientSession(read, write) as session:
-#             await session.initialize()
-#             result = await session.call_tool("get_weather", {"location": location})
-#             return result.content
-
-# if __name__ == "__main__":
-#     async def main():
-#         res = await fetch_weather("Paris")
-#         print("🌤️ Weather in Paris:", res)
-
-#     asyncio.run(main())
-##############################
-
-
-# weather_client.py
+Modules:
+    asyncio: Provides support for asynchronous coroutines.
+    os: Used to handle file paths.
+    json: For parsing server responses.
+    re: (Optional, for parsing specific data like temperature).
+    mcp.client.stdio: Provides stdio client for MCP communication.
+    mcp: Provides ClientSession and StdioServerParameters for MCP sessions.
+"""
 import asyncio
-from fastmcp import FastMCP
+from mcp import ClientSession, StdioServerParameters
+from mcp.client.stdio import stdio_client
+import os
+import json
+import re
 
 async def fetch_weather(location: str) -> str:
-    # Connect to the FastMCP server
-    mcp = FastMCP("weather-mcp-1")
-    
-    # FastMCP typically uses HTTP transport, not stdio
-    # You'll need to configure the connection based on how your server runs
-    try:
-        result = await mcp.call_tool("get_weather", {"location": location})
-        return result
-    except Exception as e:
-        return f"Error: {e}"
+    """
+    Fetch weather information for a given location using the MCP weather server.
 
+    This function:
+        1. Locates and runs the local MCP weather server (`weather_server.py`).
+        2. Initializes an MCP client session via stdio.
+        3. Lists all available tools in the server.
+        4. Calls the `get_weather` tool with the specified location.
+        5. Parses the server response JSON and returns the weather content.
+
+    Args:
+        location (str): Name of the location (e.g., "Paris", "London").
+
+    Returns:
+        str | None:
+            - Weather information string if the server returns valid content
+              (e.g., `"Paris: 🌫 +10°C"`).
+            - `None` if no valid response is received from the server.
+
+    Example:
+        >>> result = await fetch_weather("Paris")
+        >>> print(result)
+        Paris: 🌫 +10°C
+
+    Notes:
+        - Server responses are expected to be JSON strings like:
+          `{"content": "Paris: 🌫 +10°C"}`.
+        - If JSON parsing fails, the raw text from the server is returned.
+        - Optionally, regex can be used to extract specific details like temperature.
+    """
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    server_path = os.path.join(current_dir, "..", "mcp_servers", "weather_server.py")
+    server_path = os.path.abspath(server_path)  
+    server_params = StdioServerParameters(
+        command="python",
+        args=[server_path]
+
+    )
+    async with stdio_client(server_params) as streams:
+        # Create the client session with the streams
+        async with ClientSession(*streams) as session:
+            # Initialize the session
+            await session.initialize()
+
+            # List available tools
+            response = await session.list_tools()
+            print("Available tools:", [tool.name for tool in response.tools])
+
+            # Call the add tool
+            result = await session.call_tool("get_weather", {"location": location})
+            print("Weather Server Result", result.content)
+            
+             # Extract and return the text result
+            if result.content:
+                # result.content is a list of TextContent objects → extract first one
+                text = result.content[0].text  
+                try:
+                    # Parse JSON string from server response
+                    data = json.loads(text)
+                    # return data.get("content")
+                    return data.get("content").strip()
+                except Exception:
+                    # Fallback: return raw text
+                    # return text
+                    return text.strip()
+                
+                   # Extract temperature with regex (e.g., +10°C, -2°C, 25°C)
+                    # match = re.search(r"[-+]?\d+°C", weather_str)
+                    # if match:
+                    #     return match.group(0)  # just the temperature
+                    # return weather_str   # fallback: return whole string
+            return None
+            
+   
 if __name__ == "__main__":
     async def main():
-        res = await fetch_weather("Paris")
-        print("🌤️ Weather in Paris:", res)
+        res = await fetch_weather("Paris")  
+        # print("🌤️ Weather in Paris:", res)
+        print(res)
 
     asyncio.run(main())
+##############################
