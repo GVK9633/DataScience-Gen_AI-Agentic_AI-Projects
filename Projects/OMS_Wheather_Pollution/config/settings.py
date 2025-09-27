@@ -12,12 +12,12 @@ AGENT_CONFIG = {
     "weather": {
         "llm": "openai",
         "tools": ["get_city_weather", "get_country_weather"],
-        "mcp_servers": ["weather-mcp"]
+        "mcp_servers": ["weather-mcp-1"]
     },
     "pollution": {
         "llm": "openai",
         "tools": ["get_city_pollution", "get_country_pollution"],
-        "mcp_servers": ["pollution-mcp"]
+        "mcp_servers": ["pollution-mcp-1"]
     },
     "parent": {
         "llm": {

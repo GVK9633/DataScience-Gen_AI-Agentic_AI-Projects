@@ -78,10 +78,10 @@ async def get_pollution(location: str) -> str:
                     return text.strip()
             return None
 
-if __name__ == "__main__":
-    async def main():
-        res = await get_pollution("Paris")
-        print("Pollution in Delhi:", res)
-        print(res)
-    asyncio.run(main())
+# if __name__ == "__main__":
+#     async def main():
+#         res = await get_pollution("Paris")
+#         print("Pollution in Delhi:", res)
+#         print(res)
+#     asyncio.run(main())
    

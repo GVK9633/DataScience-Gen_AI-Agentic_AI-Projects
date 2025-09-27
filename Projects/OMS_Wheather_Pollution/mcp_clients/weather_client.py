@@ -98,11 +98,11 @@ async def fetch_weather(location: str) -> str:
             return None
             
    
-if __name__ == "__main__":
-    async def main():
-        res = await fetch_weather("Paris")  
-        # print("🌤️ Weather in Paris:", res)
-        print(res)
+# if __name__ == "__main__":
+#     async def main():
+#         res = await fetch_weather("Paris")  
+#         # print("🌤️ Weather in Paris:", res)
+#         print(res)
 
-    asyncio.run(main())
+#     asyncio.run(main())
 ##############################
