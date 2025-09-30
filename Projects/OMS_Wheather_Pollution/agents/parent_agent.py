@@ -42,24 +42,7 @@ def classify_query(state: AgentState) -> AgentState:
     state["targets"] = parsed
     state["results"] = {}
     return state
-# def classify_query(state: AgentState) -> AgentState:
-#     prompt = f"""
-#     Extract which agents to call and their target from this query.
-#     Available agents: {AGENT_CONFIG['parent']['agents']}
-#     User query: {state['query']}
-#     Respond strictly in JSON, e.g. {{"weather": "Paris", "pollution": "Delhi"}}
-#     """
-#     resp = client.chat.completions.create(
-#         model=AGENT_CONFIG["parent"]["llm_model"],
-#         messages=[{"role": "user", "content": prompt}]
-#     )
-#     try:
-#         parsed = json.loads(resp.choices[0].message.content)
-#     except Exception:
-#         parsed = {}
-#     state["targets"] = parsed
-#     state["results"] = {}
-#     return state
+
 
 # --- Call agent node ---
 def call_agent(agent_name: str):
@@ -74,18 +57,6 @@ def call_agent(agent_name: str):
             return {"results": {agent_name: result}}
         return {}
     return node
-
-# def call_agent(agent_name: str):
-#     async def node(state: AgentState) -> AgentState:
-#         target = state["targets"].get(agent_name)
-#         if target:
-#             agent = AgentFactory.create_agent(agent_name)
-#             result = agent.run(target)
-#             return {"results": {agent_name: result}}
-#         return {}
-#         #     state["results"][agent_name] = await agent.run(target)
-#         # return state
-#     return node
 
 
 # --- Merge results ---

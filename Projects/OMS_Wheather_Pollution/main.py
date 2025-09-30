@@ -7,7 +7,7 @@ import asyncio
 from agents.parent_agent import app
 
 if __name__ == "__main__":
-    print("🤖 Dynamic Tool Framework started!")
+    print("Dynamic Tool Framework started!")
 
     async def main():
         while True:
