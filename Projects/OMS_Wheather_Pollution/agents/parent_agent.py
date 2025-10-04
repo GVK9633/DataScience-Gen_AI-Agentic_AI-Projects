@@ -4,16 +4,16 @@ from langgraph.graph import StateGraph, END
 from agents.agent_factory import AgentFactory
 import os
 import json
-from typing_extensions import Annotated
+from typing_extensions import Annotated,TypedDict
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-class AgentState(dict):
+class AgentState(TypedDict):
     query: str
     # query: Annotated[list[str], "aggregate"]
     targets: dict      # e.g., {"weather": "Paris"}
     # Mark 'results' as Annotated to allow concurrent updates
-    results: Annotated[dict, "concurrent"]
+    results: Annotated[dict[str, str], "aggregate"]
     
     final: str
 

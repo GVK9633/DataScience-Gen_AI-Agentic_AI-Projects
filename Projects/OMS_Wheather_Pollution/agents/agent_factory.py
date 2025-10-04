@@ -1,4 +1,5 @@
 # agents/agent_factory.py
+import asyncio
 from config.settings import AGENT_CONFIG
 from tools import weather_tools, pollution_tools
 import importlib
@@ -34,18 +35,32 @@ class DynamicAgent:
                 func = getattr(module, tool_name)
                 tool_funcs.append(func)
             except (ImportError, AttributeError) as e:
-                raise ImportError(f"❌ Tool {tool_name} not found in {module_name}") from e
+                raise ImportError(f"Tool {tool_name} not found in {module_name}") from e
         return tool_funcs    
         
         
     # Make run async
+    # async def run(self, target: str):
+    #     results = []
+    #     # Run each tool asynchronously
+    #     for tool in self.tools:
+    #         res = await tool(target)  # <- await coroutine
+    #         results.append(res)
+    #     return " | ".join(results)
     async def run(self, target: str):
-        results = []
-        # Run each tool asynchronously
-        for tool in self.tools:
-            res = await tool(target)  # <- await coroutine
-            results.append(res)
-        return " | ".join(results)
+        tasks = [tool(target) for tool in self.tools]
+        results = await asyncio.gather(*tasks, return_exceptions=True)
+
+        # clean up errors
+        clean_results = []
+        for r in results:
+            if isinstance(r, Exception):
+                clean_results.append(f"⚠️ {type(r).__name__}: {r}")
+            else:
+                clean_results.append(r)
+
+        return " | ".join(clean_results)
+
 
 class AgentFactory:
     @staticmethod
