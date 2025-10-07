@@ -9,7 +9,7 @@ import os
 os.environ["OPENAI_API_KEY"] = "" 
 print(os.environ.get("OPENAI_API_KEY"))
 # Initialize LLM
-llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.7)
+llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.7,api_key=os.getenv("OPENAI_API_KEY"))
 
 # Define a simple tool
 def search(query: str) -> str:
