@@ -77,6 +77,11 @@ workflow.add_edge("weather", "merge")
 workflow.add_edge("merge", END)
 
 app = workflow.compile()
+drawable = app.get_graph()
+
+    # Mermaid text
+print("\n=== Mermaid =====")
+print(drawable.draw_mermaid())
 
 # --- Run ---
 async def main():
