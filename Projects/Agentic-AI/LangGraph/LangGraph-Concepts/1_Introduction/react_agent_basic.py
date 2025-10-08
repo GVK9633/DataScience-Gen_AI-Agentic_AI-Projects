@@ -8,15 +8,8 @@ import os
 
 load_dotenv()
 
-# os.environ["OPENAI_API_KEY"] = "s" 
-# print(os.environ.get("OPENAI_API_KEY"))
 
 llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.7,api_key=os.getenv("OPENAI_API_KEY"))
-
-# result = llm.invoke("Who is pm of india in one word")
-# print(result)
-# llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro")
-
 # os.environ["TAVILY_API_KEY"] = os.getenv("TAVILY_API_KEY")
 search_tool = TavilySearchResults(search_depth="basic",api_key=os.getenv("TAVILY_API_KEY"))
 
