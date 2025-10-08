@@ -11,6 +11,8 @@ from langchain.agents import initialize_agent, Tool
 from langchain_community.tools import TavilySearchResults
 from dotenv import load_dotenv
 import os
+import importlib
+import pkgutil
 
 # -----------------------------------
 # Load environment variables
@@ -49,14 +51,29 @@ Tavily_search_tool = TavilySearchResults(
     search_depth="basic",
     api_key=os.getenv("TAVILY_API_KEY")
 )
+# -------------------------------
+# Dynamically load MCP agent modules
+# -------------------------------
+def load_mcp_agents():
+    """Auto-discovers all agents in the agents/ folder."""
+    gents_list = {}
+    package = "agents"
+    for _, name, _ in pkgutil.iter_modules([package]):
+        module = importlib.import_module(f"{package}.{name}")
+        if hasattr(module, "get_tools"):
+            gents_list[name] = module.get_tools()
+    return gents_list
 
 # -----------------------------------
-# Initialize Agent
+# Parent reasoning agent
 # -----------------------------------
 def create_parent_agent(user_input:str, verbose: bool = True):
     """
     Creates and returns the main reasoning agent.
     """
+    mcp_agents = load_mcp_agents()
+    # Flatten all tools from all MCPs
+    tools = [tool for group in mcp_agents.values() for tool in group]
     agent = initialize_agent(
         tools=[search_tool,Tavily_search_tool],
         llm=llm,
