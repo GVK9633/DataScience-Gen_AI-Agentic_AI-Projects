@@ -4,8 +4,8 @@ Entry point for interactive user-agent chat.
 Imports and uses the parent agent dynamically.
 """
 
-# from parent_agent import create_parent_agent
-from agents import parent_agent
+from parent_agent import create_parent_agent
+# from agents import parent_agent
 
 def main():
     print("🤖 Dynamic Parent Agent (type 'exit' to quit)\n")
@@ -23,7 +23,7 @@ def main():
             break
 
         try:
-            response = parent_agent.create_parent_agent(user_input,verbose=True)
+            response = create_parent_agent(user_input,verbose=True)
             # response = agent.run(user_input)
             print("\nAgent Response:", response, "\n")
         except Exception as e:
