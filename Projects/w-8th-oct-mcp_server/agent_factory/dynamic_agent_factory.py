@@ -38,12 +38,20 @@ class DynamicAgentFactory:
         for mcp_name in agent_cfg["mcp_servers"]:
             try:
                 module = importlib.import_module(f"mcp_clients.{mcp_name}_client")
-                if hasattr(module, "get_tools"):
-                    mcp_tools = module.get_tools()
-                    tools.extend(mcp_tools)
-                    print(f"Loaded {len(mcp_tools)} tools from {mcp_name}")
-                else:
-                    print(f"No get_tools() function found in {mcp_name}_client")
+                if mcp_name == "math-mcp":
+                    if hasattr(module, "get_tools"):
+                        mcp_tools = module.get_tools()  
+                        tools.extend(mcp_tools)
+                        print(f"Loaded {len(mcp_tools)} tools from {mcp_name}")
+                    else:
+                        print(f"No get_tools() function found in {mcp_name}_client")
+                elif mcp_name == "pollution-mcp":
+                    if hasattr(module, "get_pollution_tools"):
+                        mcp_tools = module.get_pollution_tools()  
+                        tools.extend(mcp_tools)
+                        print(f"Loaded {len(mcp_tools)} tools from {mcp_name}")
+                    else:
+                        print(f"No get_tools() function found in {mcp_name}_client")        
             except ModuleNotFoundError:
                 print(f"MCP client not found: {mcp_name}_client")
 
