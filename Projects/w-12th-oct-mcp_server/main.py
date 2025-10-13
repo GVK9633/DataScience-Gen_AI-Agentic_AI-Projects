@@ -34,7 +34,9 @@ async def main():
 
             # Run the query
             print("\n🤔 Thinking...\n")
-            result = agent.run(query)
+            # result = agent.run(query)
+            # 🔹 Use asyncio.to_thread() to run agent.run() safely in async context
+            result = await asyncio.to_thread(agent.run, query)
             print(f"🧠 Agent Response:\n{result}\n")
 
         except ValueError as e:

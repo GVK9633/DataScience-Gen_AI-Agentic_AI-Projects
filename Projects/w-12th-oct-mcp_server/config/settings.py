@@ -21,10 +21,10 @@ AGENT_CONFIG = {
     #     "system_prompt": "You are a weather expert. Answer using real-time data.",
     #     "mcp_servers": ["weather-mcp"]
     # },
-    "agent3": {
-        "llm": "openai",
-        "llm_model": "gpt-4o-mini",
-        "system_prompt": "You are an environment analyst. Use pollution data tools.",
-        "mcp_servers": ["pollution-mcp"]
-    }
+    # "agent3": {
+    #     "llm": "openai",
+    #     "llm_model": "gpt-4o-mini",
+    #     "system_prompt": "You are an environment analyst. Use pollution data tools.",
+    #     "mcp_servers": ["pollution-mcp"]
+    # }
 }

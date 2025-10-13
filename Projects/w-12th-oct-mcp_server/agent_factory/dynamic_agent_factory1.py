@@ -4,7 +4,7 @@ import importlib
 from typing import Dict, Any
 from langchain_openai import ChatOpenAI
 from langchain.agents import initialize_agent, Tool
-from mcp_clients.universal_mcp_client import run_mcp_query
+from mcp_clients.universal_mcp_client import run_mcp_clent_query
 
 
 class DynamicAgentFactory:
@@ -32,9 +32,33 @@ class DynamicAgentFactory:
         # 1️⃣ Load LLM
         llm = ChatOpenAI(model=agent_cfg["llm_model"], temperature=0.5)
 
-        # Load all tools from listed MCP servers
-        tools = await self.load_all_mcp_tools(agent_cfg['mcp_servers'])
-        
+        # 2️⃣ Create dynamic MCP-based tools
+        tools = []
+        for mcp_name in agent_cfg["mcp_servers"]:
+            server_filename = f"{mcp_name}_server.py"
+            try:
+                module = importlib.import_module(f"mcp_server.math_server")
+                if hasattr(module, "get_tools"):
+                    math_tools = module.get_tools()
+                    tools.extend(math_tools)
+                    print(f"Loaded {len(math_tools)} tools from math-mcp")     
+            except ModuleNotFoundError:
+                print(f"MCP client not found: {mcp_name}_client")
+            # server_filename = f"{mcp_name}_server.py"
+
+            # async def run_query(query: str, server_file=server_filename):
+            #     """Call MCP server dynamically."""
+            #     return await run_mcp_clent_query(query, server_file)
+
+            # # Create a generic tool for that MCP
+            # tools.append(
+            #     Tool(
+            #         name=f"{mcp_name}-query",
+            #         func=lambda q, sf=server_filename: asyncio.run(run_query(q, sf)),
+            #         description=f"Run dynamic queries for {mcp_name} MCP server",
+            #     )
+            # )
+            # print(f"🧩 Added tool for {mcp_name}")
 
         # 3️⃣ Initialize LangChain agent
         agent = initialize_agent(
@@ -59,21 +83,3 @@ class DynamicAgentFactory:
         if name not in self.registry:
             await self.create_agent(name)
         return self.registry[name]["agent"]
-    
-    async def load_all_mcp_tools(self, mcp_servers):
-        """Load tools dynamically from multiple MCP servers using the universal MCP client."""
-        tools = []
-
-        for mcp_name in mcp_servers:
-            try:
-                print(f"🔍 Loading tools from {mcp_name}...")
-                mcp_tools = await run_mcp_query(mcp_name)
-                if mcp_tools:
-                    tools.extend(mcp_tools)
-                    print(f"✅ Loaded {len(mcp_tools)} tools from {mcp_name}")
-                else:
-                    print(f"⚠️ No tools found in {mcp_name}")
-            except Exception as e:
-                print(f"❌ Failed to load tools from {mcp_name}: {e}")
-
-        return tools
