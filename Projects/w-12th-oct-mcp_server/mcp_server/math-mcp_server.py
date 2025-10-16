@@ -1,4 +1,4 @@
-# math_server.py
+# math-mcp_server.py
 from fastmcp.server import FastMCP
 from langchain.agents import Tool
 
