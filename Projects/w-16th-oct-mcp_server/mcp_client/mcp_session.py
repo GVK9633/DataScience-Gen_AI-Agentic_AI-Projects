@@ -9,7 +9,7 @@ class MCPSession:
 
     def __init__(self, server_script_path: str):
         self.server_script_path = server_script_path
-        self.server_name = os.path.basename(server_script_path)
+        self.server_name = None
         self.session = None
         self.tools_info = []
         self._stdio_ctx = None
@@ -29,10 +29,10 @@ class MCPSession:
         self._client_session_ctx = ClientSession(read, write)
         self.session = await self._client_session_ctx.__aenter__()
 
-        await self.session.initialize()
+        init_result = await self.session.initialize()
         list_result = await self.session.list_tools()
         self.tools_info = list_result.tools
-
+        self.server_name  = getattr(getattr(init_result, "serverInfo", {}), "name", None)
         print(f"✅ Connected to MCP server [{os.path.basename(self.server_script_path)}], found {len(self.tools_info)} tools")
         return self
 

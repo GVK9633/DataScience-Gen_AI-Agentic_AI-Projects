@@ -11,6 +11,7 @@ async def load_tools_from_mcp(server_script_path: str):
         for tool_info in session.tools_info:
             tool_name = tool_info.name
             desc = tool_info.description or "No description available"
+            server_name = session.server_name
 
             async def tool_func(**kwargs):
                 return await session.call_tool(tool_name, **kwargs)
@@ -19,7 +20,7 @@ async def load_tools_from_mcp(server_script_path: str):
             def sync_tool_func(**kwargs):
                 return asyncio.run(tool_func(**kwargs))
 
-            tools.append(Tool(name=tool_name, func=sync_tool_func, description=desc,x= server_script_path))
+            tools.append(Tool(name=tool_name, func=sync_tool_func, description=desc,servername= server_name))
 
     print(f"✅ Created {len(tools)} LangChain tools from {os.path.basename(server_script_path)}")
     return tools
