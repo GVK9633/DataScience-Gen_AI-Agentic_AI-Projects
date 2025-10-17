@@ -37,7 +37,7 @@ class DynamicAgentFactory:
         has_mcp_servers = agent_cfg["mcp_servers"]
         selected_tools = [
             t for t in all_tools
-            if any(mcp in t.name or mcp in t.description for mcp in has_mcp_servers)
+            if any(mcp in t.name or mcp in t.description  for mcp in has_mcp_servers)
         ]
 
         if not selected_tools:  # If no tools matched the filter

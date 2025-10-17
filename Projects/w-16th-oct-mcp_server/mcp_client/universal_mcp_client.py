@@ -20,7 +20,7 @@ async def load_tools_from_mcp(server_script_path: str):
             def sync_tool_func(**kwargs):
                 return asyncio.run(tool_func(**kwargs))
 
-            tools.append(Tool(name=tool_name, func=sync_tool_func, description=desc,servername= server_name))
+            tools.append(Tool(name=tool_name, func=sync_tool_func, description=desc))
 
     print(f"✅ Created {len(tools)} LangChain tools from {os.path.basename(server_script_path)}")
     return tools
