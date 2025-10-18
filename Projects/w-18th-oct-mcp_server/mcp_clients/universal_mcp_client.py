@@ -19,18 +19,27 @@ async def load_tools_from_mcp(server_script_path: str):
             # Create synchronous wrapper for LangChain compatibility
             # def sync_tool_func(**kwargs):
             #     return asyncio.run(tool_func(**kwargs))
+            
+            #working-1
+            
             def sync_tool_func(*args, **kwargs):
+                # Handle both (a, b) and {"a": a, "b": b} cases
                 if len(args) == 1 and isinstance(args[0], dict):
                     kwargs = args[0]
+                elif len(args) == 2 and not kwargs:
+                # LangChain sometimes passes (5, 3)
+                    kwargs = {"a": args[0], "b": args[1]}
 
-                    try:
-                        loop = asyncio.get_running_loop()
-                    except RuntimeError:
-                        # No running loop → safe to call asyncio.run()
-                        return asyncio.run(tool_func(**kwargs))
-                else:
-                    # Already inside an event loop → schedule async task
-                    return loop.run_until_complete(tool_func(**kwargs))
+                async def run_tool():
+                    return await tool_func(**kwargs)
+
+                try:
+                    # Get the current loop if it exists
+                    loop = asyncio.get_running_loop()
+                    return loop.create_task(run_tool())  # schedule coroutine
+                except RuntimeError:
+                    # No event loop is running
+                    return asyncio.run(run_tool())
 
             tools.append(Tool(name=tool_name, func=sync_tool_func, description=desc))
 
