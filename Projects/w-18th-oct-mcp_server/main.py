@@ -35,6 +35,7 @@ async def main():
             # Run the query
             print("\n🤔 Thinking...\n")
             result = agent.run(query)
+            # result = await agent.invoke(query)
             print(f"🧠 Agent Response:\n{result}\n")
 
         except ValueError as e:
