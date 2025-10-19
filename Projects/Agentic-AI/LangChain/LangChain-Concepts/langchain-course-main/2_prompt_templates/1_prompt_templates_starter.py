@@ -26,5 +26,5 @@ messages = [
 prompt_template = ChatPromptTemplate.from_messages(messages)
 prompt = prompt_template.invoke({"topic": "lawyers", "joke_count": 3})
 result = llm.invoke(prompt)
-print(result)
+print(result.content)
 
