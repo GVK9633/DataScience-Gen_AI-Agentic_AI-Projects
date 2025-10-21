@@ -2,6 +2,11 @@ import importlib
 from typing import Dict, Any
 from langchain_openai import ChatOpenAI
 from langchain.agents import initialize_agent, Tool, AgentType
+from langchain.agents.format_scratchpad import format_log_to_str
+from langchain.agents.output_parsers import JSONAgentOutputParser
+from langchain.agents import AgentExecutor
+from langchain.tools.render import render_text_description
+from langchain import hub
 from mcp_clients.universal_mcp_client import load_all_mcp_tools
 
 
@@ -25,25 +30,29 @@ class DynamicAgentFactory:
         agent_cfg = self.config[name]
         print(f"🔧 Creating agent: {name}")
         print(f"   ↳ LLM: {agent_cfg['llm_model']}")
-        print(f"   ↳ MCP Servers: {agent_cfg['mcp_servers']}")
+        print(f"   ↳ MCP Servers: {agent_cfg.get('mcp_servers', [])}")
 
         # 1️⃣ Load LLM
-        llm = ChatOpenAI(model=agent_cfg["llm_model"], temperature=0.2)
+        llm = ChatOpenAI(
+            model=agent_cfg["llm_model"], 
+            temperature=agent_cfg.get("temperature", 0.2)
+        )
 
         # 2️⃣ Dynamically import tools from MCP clients
         tools = []
         try:
             tools = await load_all_mcp_tools(agent_cfg)
+            print(f"   ↳ Loaded {len(tools)} tools")
         except Exception as e:
             print(f"⚠️ Error loading MCP tools for {name}: {e}")
 
-        # 3️⃣ Initialize agent with proper agent type
+        # 3️⃣ Use STRUCTURED_CHAT_ZERO_SHOT_REACT_DESCRIPTION for JSON tools
         agent = initialize_agent(
             tools=tools,
             llm=llm,
-            agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,  # Use enum instead of string
+            agent=AgentType.STRUCTURED_CHAT_ZERO_SHOT_REACT_DESCRIPTION,  # CHANGED THIS
             verbose=True,
-            handle_parsing_errors=True  # Add error handling
+            handle_parsing_errors=True
         )
 
         # 4️⃣ Store in registry

@@ -30,8 +30,11 @@ async def main():
 
             print("\n🤔 Thinking...\n")
             # Use run() for synchronous execution
-            result = agent.run(query)
-            print(f"🧠 Agent Response:\n{result}\n")
+            # result = agent.run(query)
+            # print(f"🧠 Agent Response:\n{result}\n")
+            result = await agent.ainvoke({"input": query})  # Fixed this line
+            print(f"🧠 Agent Response:\n{result['output']}\n")  # Extract output
+
 
         except ValueError as e:
             print(f"❌ {e}")
