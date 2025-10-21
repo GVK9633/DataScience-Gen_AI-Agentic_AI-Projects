@@ -74,39 +74,39 @@ def divide(numbers: List[Union[int, float]]) -> Union[int, float]:
     return result
 
 # Add a simple text-based tool for compatibility
-@mcp.tool()
-def calculate(operation: str, numbers: List[Union[int, float]]) -> Union[int, float]:
-    """Perform basic calculations with text operation.
+# @mcp.tool()
+# def calculate(operation: str, numbers: List[Union[int, float]]) -> Union[int, float]:
+#     """Perform basic calculations with text operation.
     
-    Args:
-        operation: One of 'add', 'multiply', 'subtract', 'divide'
-        numbers: List of numbers to operate on
-    """
-    if operation == 'add':
-        return sum(numbers)
-    elif operation == 'multiply':
-        result = 1
-        for num in numbers:
-            result *= num
-        return result
-    elif operation == 'subtract':
-        if not numbers:
-            return 0
-        result = numbers[0]
-        for num in numbers[1:]:
-            result -= num
-        return result
-    elif operation == 'divide':
-        if not numbers:
-            return 0
-        result = numbers[0]
-        for num in numbers[1:]:
-            if num == 0:
-                raise ValueError("Cannot divide by zero")
-            result /= num
-        return result
-    else:
-        raise ValueError(f"Unknown operation: {operation}")
+#     Args:
+#         operation: One of 'add', 'multiply', 'subtract', 'divide'
+#         numbers: List of numbers to operate on
+#     """
+#     if operation == 'add':
+#         return sum(numbers)
+#     elif operation == 'multiply':
+#         result = 1
+#         for num in numbers:
+#             result *= num
+#         return result
+#     elif operation == 'subtract':
+#         if not numbers:
+#             return 0
+#         result = numbers[0]
+#         for num in numbers[1:]:
+#             result -= num
+#         return result
+#     elif operation == 'divide':
+#         if not numbers:
+#             return 0
+#         result = numbers[0]
+#         for num in numbers[1:]:
+#             if num == 0:
+#                 raise ValueError("Cannot divide by zero")
+#             result /= num
+#         return result
+#     else:
+#         raise ValueError(f"Unknown operation: {operation}")
 
 if __name__ == "__main__":
     print("Starting Math Server...")
