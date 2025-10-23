@@ -47,7 +47,7 @@ class DynamicAgentFactory:
             agent = initialize_agent(
                 tools=tools,
                 llm=llm,
-                agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+                agent=AgentType.OPENAI_FUNCTIONS,
                 verbose=False,
                 handle_parsing_errors=True
             )
