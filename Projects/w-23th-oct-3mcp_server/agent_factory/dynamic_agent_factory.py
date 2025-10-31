@@ -48,7 +48,7 @@ class DynamicAgentFactory:
                 tools=tools,
                 llm=llm,
                 agent=AgentType.OPENAI_FUNCTIONS,
-                verbose=False,
+                verbose=True,
                 handle_parsing_errors=True
             )
             print(f"✅ Created tool-based agent for {name} with {len(tools)} tools.")
