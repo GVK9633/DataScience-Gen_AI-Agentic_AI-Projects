@@ -4,6 +4,8 @@ from langchain_chroma import Chroma
 from langchain_openai import OpenAIEmbeddings
 from langchain_openai import ChatOpenAI
 from langchain.schema import HumanMessage, SystemMessage
+from dotenv import load_dotenv
+load_dotenv()
 
 # Define the persistent directory
 current_dir = os.path.dirname(os.path.abspath(__file__))

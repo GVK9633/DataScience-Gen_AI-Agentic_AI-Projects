@@ -1,6 +1,8 @@
 import os
 from langchain_chroma import Chroma
 from langchain_openai import OpenAIEmbeddings
+from dotenv import load_dotenv
+load_dotenv()
 
 # Define the persistent directory
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -19,7 +21,8 @@ query = "Where does Gandalf meet Frodo?"
 # Retrieve relevant documents based on the query
 retriever = db.as_retriever(
     search_type="similarity_score_threshold",
-    search_kwargs={"k": 10, "score_threshold": 0.9}, 
+    search_kwargs={"k": 3, "score_threshold": 0.5}, 
+    # search_kwargs={"k": 10, "score_threshold": 0.9}, 
 )
 relevant_docs = retriever.invoke(query)
 
