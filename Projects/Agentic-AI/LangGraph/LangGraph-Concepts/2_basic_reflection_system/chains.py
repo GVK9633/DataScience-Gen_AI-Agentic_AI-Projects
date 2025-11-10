@@ -5,14 +5,16 @@ import os
 from dotenv import load_dotenv
 import os
 
-dotenv_path = os.path.abspath(os.path.join(os.path.dirname(__file__), r"../../../../../..", ".env"))
-# print("Looking for .env at:", dotenv_path)
+# dotenv_path = os.path.abspath(os.path.join(os.path.dirname(__file__), r"../../../../../..", ".env"))
+# # print("Looking for .env at:", dotenv_path)
 
-load_dotenv(dotenv_path=dotenv_path)
+# load_dotenv(dotenv_path=dotenv_path)
 
-print("OPENAI_API_KEY:", os.environ.get("OPENAI_API_KEY"))
-print("GEMINI_API_KEY:", os.environ.get("GEMINI_API_KEY"))
-os.environ["OPENAI_API_KEY"] = os.environ.get("OPENAI_API_KEY",)
+load_dotenv()
+
+# print("OPENAI_API_KEY:", os.environ.get("OPENAI_API_KEY"))
+# print("GEMINI_API_KEY:", os.environ.get("GEMINI_API_KEY"))
+# os.environ["OPENAI_API_KEY"] = os.environ.get("OPENAI_API_KEY",)
 generation_prompt = ChatPromptTemplate.from_messages(
     [
         (
@@ -37,7 +39,7 @@ reflection_prompt = ChatPromptTemplate.from_messages(
 )
 # os.environ["OPENAI_API_KEY"] = "" 
 # print(os.environ.get("OPENAI_API_KEY"))
-llm = ChatOpenAI(model="gpt-4o")
+llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.7)
 
 generation_chain = generation_prompt | llm
 reflection_chain = reflection_prompt | llm

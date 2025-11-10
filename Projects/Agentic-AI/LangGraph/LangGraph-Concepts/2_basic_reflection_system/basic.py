@@ -15,30 +15,27 @@ def generate_node(state):
         "messages": state
     })
 
-
 def reflect_node(messages):
     response = reflection_chain.invoke({
         "messages": messages
     })
     return [HumanMessage(content=response.content)]
 
-
 graph.add_node(GENERATE, generate_node)
 graph.add_node(REFLECT, reflect_node)
 graph.set_entry_point(GENERATE)
 
-def should_continue(state):
-    # messages = state.get("messages", state)   # support both dict or list
-    messages = state if isinstance(state, list) else state.get("messages", [])
-    if len(messages) > 4:
-        return END
-    return REFLECT
-
 # def should_continue(state):
-#     if (len(state) > 4):
-#         return END 
+#     # messages = state.get("messages", state)   # support both dict or list
+#     messages = state if isinstance(state, list) else state.get("messages", [])
+#     if len(messages) > 4:
+#         return END
 #     return REFLECT
 
+def should_continue(state):
+    if (len(state) > 4):
+        return END 
+    return REFLECT
 
 graph.add_conditional_edges(GENERATE, should_continue)
 graph.add_edge(REFLECT, GENERATE)
@@ -51,8 +48,6 @@ app.get_graph().print_ascii()
 # from IPython.display import Image, display
 
 # display(Image(graph.get_graph().draw_mermaid_png()))
-
-
 response = app.invoke(HumanMessage(content="AI Agents taking over content creation"))
 
 print(response)
