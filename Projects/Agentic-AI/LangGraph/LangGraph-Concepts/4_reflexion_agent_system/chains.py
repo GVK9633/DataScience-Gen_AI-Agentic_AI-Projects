@@ -4,6 +4,8 @@ from langchain_openai import ChatOpenAI
 from schema import AnswerQuestion, ReviseAnswer
 from langchain_core.output_parsers.openai_tools import PydanticToolsParser, JsonOutputToolsParser
 from langchain_core.messages import HumanMessage
+from dotenv import load_dotenv
+load_dotenv()
 
 pydantic_parser = PydanticToolsParser(tools=[AnswerQuestion])
 
