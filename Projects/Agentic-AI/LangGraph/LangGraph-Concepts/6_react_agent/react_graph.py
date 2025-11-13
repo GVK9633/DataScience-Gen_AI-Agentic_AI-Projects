@@ -1,12 +1,9 @@
-from dotenv import load_dotenv
-
-load_dotenv()
-
 from langchain_core.agents import AgentFinish, AgentAction
 from langgraph.graph import END, StateGraph
-
 from nodes import reason_node, act_node
 from react_state import AgentState
+from dotenv import load_dotenv
+load_dotenv()
 
 REASON_NODE = "reason_node"
 ACT_NODE = "act_node"
@@ -41,6 +38,6 @@ result = app.invoke(
         "intermediate_steps": []
     }
 )
-
+print(result)
 print(result["agent_outcome"].return_values["output"], "final result")
 

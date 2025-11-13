@@ -1,8 +1,12 @@
 from langchain_openai import ChatOpenAI
 from langchain.agents import tool, create_react_agent
 import datetime
-from langchain_community.tools import TavilySearchResults
+# from langchain_community.tools import TavilySearchResults
+from langchain_tavily import TavilySearch
 from langchain import hub
+
+from dotenv import load_dotenv
+load_dotenv()
 
 llm = ChatOpenAI(model="gpt-4")
 
@@ -14,7 +18,9 @@ def get_system_time(format: str = "%Y-%m-%d %H:%M:%S"):
     formatted_time = current_time.strftime(format)
     return formatted_time
 
-search_tool = TavilySearchResults(search_depth="basic")
+# search_tool = TavilySearchResults(search_depth="basic")
+search_tool = TavilySearch(search_depth="basic")
+
 react_prompt = hub.pull("hwchase17/react")
 
 
