@@ -18,9 +18,15 @@ llm = ChatGroq(model="llama-3.1-8b-instant")
 
 llm_with_tools = llm.bind_tools(tools=tools)
 
+
 def chatbot(state: BasicChatBot):
     return {
+        #Tool node expecting "messages" key in the state
+        # tool_node = ToolNode(tools=tools)
         "messages": [llm_with_tools.invoke(state["messages"])], 
+        
+        # instead of messages key it can be any other key as well example "messageBody" then 
+        # tool_node = ToolNode(tools=tools,messages_key="messageBody")
     }
 
 def tools_router(state: BasicChatBot):
@@ -54,7 +60,20 @@ while True:
             "messages": [HumanMessage(content=user_input)]
         })
 
-        print(result)
+        # print(result)
+        
+         # result may contain "messages" list depending on your graph
+        if "messages" in result:
+            ai_msg = result["messages"][-1]   # last message from agent
+            print("LastMessage-Assistant:", ai_msg.content)
+
+            # some graphs return directly an AIMessage object:
+        elif isinstance(result, AIMessage):
+            print("AI-Message-Assistant:", result.content)
+
+        # fallback for any other structure
+        else:
+            print("Result-Assistant:", result)
 
 
 

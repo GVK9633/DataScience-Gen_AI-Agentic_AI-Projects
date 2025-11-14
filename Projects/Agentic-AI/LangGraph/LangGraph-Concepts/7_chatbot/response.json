@@ -1,0 +1,49 @@
+{
+  "content": "",
+  "additional_kwargs": {
+    "tool_calls": [
+      {
+        "id": "20qswhpwg",
+        "type": "function",
+        "function": {
+          "name": "tavily_search_results_json",
+          "arguments": {
+            "query": "Current weather in Hyderabad"
+          }
+        }
+      }
+    ]
+  },
+  "response_metadata": {
+    "token_usage": {
+      "prompt_tokens": 285,
+      "completion_tokens": 21,
+      "total_tokens": 306,
+      "prompt_time": 0.015767717,
+      "completion_time": 0.035757709,
+      "queue_time": 0.049312723,
+      "total_time": 0.051525426
+    },
+    "model_name": "llama-3.1-8b-instant",
+    "system_fingerprint": "fp_ff2b098aaf",
+    "service_tier": "on_demand",
+    "finish_reason": "tool_calls",
+    "logprobs": null
+  },
+  "id": "run--c7c9d600-cba0-438e-a1ab-fc76e38ea4ca-0",
+  "tool_calls": [
+    {
+      "id": "20qswhpwg",
+      "type": "tool_call",
+      "name": "tavily_search_results_json",
+      "args": {
+        "query": "Current weather in Hyderabad"
+      }
+    }
+  ],
+  "usage_metadata": {
+    "input_tokens": 285,
+    "output_tokens": 21,
+    "total_tokens": 306
+  }
+}
