@@ -2,6 +2,8 @@ from typing import TypedDict, Annotated
 from langchain_core.messages import HumanMessage
 from langgraph.graph import add_messages, StateGraph, END
 from langchain_groq import ChatGroq
+from dotenv import load_dotenv  
+load_dotenv()
 
 class State(TypedDict): 
     messages: Annotated[list, add_messages]
