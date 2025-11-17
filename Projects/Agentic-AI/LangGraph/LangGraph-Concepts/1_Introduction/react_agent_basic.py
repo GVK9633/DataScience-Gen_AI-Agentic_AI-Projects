@@ -1,4 +1,4 @@
-from langchain_google_genai import ChatGoogleGenerativeAI
+# from langchain_google_genai import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
 from langchain.agents import initialize_agent, tool
 from langchain_community.tools import TavilySearchResults
