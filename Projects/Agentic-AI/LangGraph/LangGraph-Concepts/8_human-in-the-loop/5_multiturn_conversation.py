@@ -5,6 +5,8 @@ from langgraph.checkpoint.memory import MemorySaver
 from langchain_groq import ChatGroq
 from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
 import uuid
+from dotenv import load_dotenv
+load_dotenv()
 
 llm = ChatGroq(model="llama-3.1-8b-instant")
 
