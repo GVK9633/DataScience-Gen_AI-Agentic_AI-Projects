@@ -1,0 +1,8 @@
+# pip install langchain==0.3.7 \
+#             langchain-community \
+#             langchain-core \
+#             langgraph \ 0.0.30
+#             langchain-openai \
+#             python-dotenv \
+#             tavily-python \
+#             pydantic
