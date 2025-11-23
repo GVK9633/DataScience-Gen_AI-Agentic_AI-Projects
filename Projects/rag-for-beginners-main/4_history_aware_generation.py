@@ -47,13 +47,27 @@ def ask_question(user_question):
         print(f"  Doc {i}: {preview}...")
     
     # Step 3: Create final prompt
+    
+    # combined_input = f"""Based on the following documents, please answer this question: {user_question}
+
+    # Documents:
+    # {"\n".join([f"- {doc.page_content}" for doc in docs])}
+
+    # Please provide a clear, helpful answer using only the information from these documents. If you can't find the answer in the documents, say "I don't have enough information to answer that question based on the provided documents."
+    # """
+    # Prepare docs text safely
+    docs_text = "\n".join([f"- {doc.page_content}" for doc in docs])
+
     combined_input = f"""Based on the following documents, please answer this question: {user_question}
 
     Documents:
-    {"\n".join([f"- {doc.page_content}" for doc in docs])}
+    {docs_text}
 
-    Please provide a clear, helpful answer using only the information from these documents. If you can't find the answer in the documents, say "I don't have enough information to answer that question based on the provided documents."
+    Please provide a clear, helpful answer using only the information from these documents.
+    If you can't find the answer in the documents, say:
+    "I don't have enough information to answer that question based on the provided documents."
     """
+
     
     # Step 4: Get the answer
     messages = [
@@ -87,3 +101,15 @@ def start_chat():
 
 if __name__ == "__main__":
     start_chat()
+    
+# Synthetic Questions: 
+
+# 1. "What was NVIDIA's first graphics accelerator called?"
+# 2. "Which company did NVIDIA acquire to enter the mobile processor market?"
+# 3. "What was Microsoft's first hardware product release?"
+# 4. "How much did Microsoft pay to acquire GitHub?"
+# 5. "In what year did Tesla begin production of the Roadster?"
+# 6. "Who succeeded Ze'ev Drori as CEO in October 2008?"
+# 7. "What was the name of the autonomous spaceport drone ship that achieved the first successful sea landing?"
+# 8. "What was the original name of Microsoft before it became Microsoft?"
+    

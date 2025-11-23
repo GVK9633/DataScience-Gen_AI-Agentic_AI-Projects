@@ -49,6 +49,9 @@ Documents:
 Please provide a clear, helpful answer using only the information from these documents. If you can't find the answer in the documents, say "I don't have enough information to answer that question based on the provided documents."
 """
 
+print("\n--- Combined Input for LLM ---\n")
+print(f"{combined_input}\n")
+print("\n--- Invoking LLM ---")
 # Create a ChatOpenAI model
 model = ChatOpenAI(model="gpt-4o")
 
