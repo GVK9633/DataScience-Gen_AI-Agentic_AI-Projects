@@ -1,4 +1,5 @@
-from langchain.text_splitter import CharacterTextSplitter, RecursiveCharacterTextSplitter
+# from langchain.text_splitter import CharacterTextSplitter, RecursiveCharacterTextSplitter
+from langchain_text_splitters import CharacterTextSplitter,RecursiveCharacterTextSplitter
 
 tesla_text = """Tesla's Q3 Results
 

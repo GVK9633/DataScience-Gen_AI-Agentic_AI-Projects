@@ -6,3 +6,6 @@
 #             python-dotenv \
 #             tavily-python \
 #             pydantic
+
+python3.10 -m venv ragpdf
+source ragpdf/bin/activate
