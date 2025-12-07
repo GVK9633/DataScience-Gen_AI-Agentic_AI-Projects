@@ -1,7 +1,10 @@
 from dotenv import load_dotenv
-from langchain.prompts import ChatPromptTemplate
-from langchain.schema.output_parser import StrOutputParser
-from langchain.schema.runnable import RunnableBranch
+# from langchain.prompts import ChatPromptTemplate
+# from langchain.schema.output_parser import StrOutputParser
+# from langchain.schema.runnable import RunnableBranch
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.runnables import RunnableBranch
+from langchain_core.output_parsers import StrOutputParser
 from langchain_openai import ChatOpenAI
 
 # Load environment variables from .env
@@ -85,7 +88,10 @@ chain = classification_chain | branches
 # Neutral review - "The product is okay. It works as expected but nothing exceptional."
 # Default - "I'm not sure about the product yet. Can you tell me more about its features and benefits?"
 
-review = "The product is terrible. It broke after just one use and the quality is very poor."
+# review = "The product is terrible. It broke after just one use and the quality is very poor."
+# review = "The product is excellent. I really enjoyed using it and found it very helpful."
+# review = "The product is okay. It works as expected but nothing exceptional."
+review = "I'm not sure about the product yet. Can you tell me more about its features and benefits?"
 result = chain.invoke({"feedback": review})
 
 # Output the result

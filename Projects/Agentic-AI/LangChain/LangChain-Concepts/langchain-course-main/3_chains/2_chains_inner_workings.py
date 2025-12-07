@@ -1,6 +1,8 @@
 from dotenv import load_dotenv
-from langchain.prompts import ChatPromptTemplate
-from langchain.schema.runnable import RunnableLambda, RunnableSequence
+# from langchain.prompts import ChatPromptTemplate
+# from langchain.schema.runnable import RunnableLambda, RunnableSequence
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.runnables import RunnableLambda, RunnableSequence
 from langchain_openai import ChatOpenAI
 
 # Load environment variables from .env
@@ -23,8 +25,10 @@ invoke_model = RunnableLambda(lambda x: model.invoke(x.to_messages()))
 parse_output = RunnableLambda(lambda x: x.content)
 
 # Create the RunnableSequence (equivalent to the LCEL chain)
-chain = RunnableSequence(first=format_prompt, middle=[invoke_model], last=parse_output)
-
+#approach 1
+# chain = RunnableSequence(first=format_prompt, middle=[invoke_model], last=parse_output)
+#approach 2
+chain = (format_prompt|invoke_model|parse_output)
 # Run the chain
 response = chain.invoke({"animal": "cat", "count": 2})
 
