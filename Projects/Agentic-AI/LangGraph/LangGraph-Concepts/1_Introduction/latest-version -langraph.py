@@ -38,6 +38,7 @@ llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.7)
 
 agent = create_agent(
     model="gpt-5",
+    # llm=llm,
     tools=tools
 )
 
@@ -50,5 +51,13 @@ result = agent.invoke(
         ]
     }
 )
+for event in agent.stream(
+    {
+        "messages": [
+            HumanMessage(content="What time is it now?")
+        ]
+    }
+):
+    print(event)
 
 print(result["messages"][-1].content)
