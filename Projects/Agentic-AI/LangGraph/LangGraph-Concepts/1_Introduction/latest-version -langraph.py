@@ -1,22 +1,3 @@
-# from langchain.agents import create_agent
-# import datetime
-# from langchain.tools import tool
-# from langchain_openai import ChatOpenAI
-# from dotenv import load_dotenv
-# load_dotenv()
-
-# @tool
-# def get_system_time(format: str = "%Y-%m-%d %H:%M:%S"):
-#     """ Returns the current date and time in the specified format """
-
-#     current_time = datetime.datetime.now()
-#     formatted_time = current_time.strftime(format)
-#     return formatted_time
-# tools = [get_system_time]
-# llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.7)
-# agent = create_agent("gpt-5", tools=tools)
-# agent.invoke("When was SpaceX's last launch and how many days ago was that from this instant")
-
 from dotenv import load_dotenv
 import datetime
 
@@ -60,4 +41,4 @@ for event in agent.stream(
 ):
     print(event)
 
-print(result["messages"][-1].content)
+# print(result["messages"][-1].content)
