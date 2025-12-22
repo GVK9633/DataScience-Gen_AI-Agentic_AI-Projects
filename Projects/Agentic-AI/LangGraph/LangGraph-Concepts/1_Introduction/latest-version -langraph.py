@@ -41,4 +41,4 @@ for event in agent.stream(
 ):
     print(event)
 
-# print(result["messages"][-1].content)
+print(result["messages"][-1].content)
