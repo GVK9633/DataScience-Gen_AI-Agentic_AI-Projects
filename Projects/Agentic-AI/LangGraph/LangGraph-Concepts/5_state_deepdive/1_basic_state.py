@@ -4,7 +4,6 @@ from langgraph.graph import END, StateGraph
 class SimpleState(TypedDict):
     count: int
 
-
 def increment(state: SimpleState) -> SimpleState: 
     return {
         "count": state["count"] + 1
@@ -17,11 +16,8 @@ def should_continue(state):
         return "stop"
     
 graph = StateGraph(SimpleState)
-
 graph.add_node("increment", increment)
-
 graph.set_entry_point("increment")
-
 graph.add_conditional_edges(
     "increment", 
     should_continue, 
@@ -32,6 +28,8 @@ graph.add_conditional_edges(
 )
 
 app = graph.compile()
+print(app.get_graph().draw_mermaid())
+# app.get_graph().print_ascii()
 
 state = {
     "count": 0
