@@ -15,7 +15,7 @@ def get_system_time(format: str = "%Y-%m-%d %H:%M:%S") -> str:
 
 tools = [get_system_time]
 
-llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.7)
+llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.7,)
 
 agent = create_agent(
     model="gpt-5",
