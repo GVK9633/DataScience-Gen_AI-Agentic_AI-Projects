@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 
 from agent_reason_runnable_new import react_agent_runnable, tools
 from react_state import AgentState
-Hierarchical Agent Pattern
+
 load_dotenv()
 
 def reason_node(state: AgentState):
