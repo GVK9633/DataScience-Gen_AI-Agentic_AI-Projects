@@ -2,12 +2,21 @@ from dotenv import load_dotenv
 
 from agent_reason_runnable_new import react_agent_runnable, tools
 from react_state import AgentState
+from langchain_core.messages import HumanMessage
 
 load_dotenv()
 
 def reason_node(state: AgentState):
     # agent_outcome = react_agent_runnable.invoke(state)
-    agent_outcome = react_agent_runnable.invoke({"input": state["input"]})
+    # agent_outcome = react_agent_runnable.invoke({"input": state["input"]})
+    agent_outcome = react_agent_runnable.invoke(
+                                                {
+        "messages": [
+            HumanMessage(
+                content=state["input"]
+            )
+        ]
+    })
     return {"agent_outcome": agent_outcome}
 
 

@@ -11,6 +11,7 @@ from langchain_tavily import TavilySearch
 from langchain_classic import hub
 import warnings
 from dotenv import load_dotenv
+from langchain_core.messages import HumanMessage
 
 load_dotenv()
 
@@ -50,3 +51,17 @@ react_agent_runnable = create_agent(
 #     tools=tools,
 #     prompt=react_prompt
 # )
+# result = react_agent_runnable.invoke(
+#     {"input": "What is the current system time?"}
+# )
+# result = react_agent_runnable.invoke(
+#     {
+#         "messages": [
+#             HumanMessage(
+#                 content="When was SpaceX's last launch and how many days ago was that from now?"
+#             )
+#         ]
+#     }
+# )
+# print(result)
+
