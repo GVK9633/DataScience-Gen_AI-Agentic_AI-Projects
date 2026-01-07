@@ -7,6 +7,7 @@ from agents.policy_agent import policy_agent
 from agents.order_agent import order_agent
 from agents.decision_agent import decision_agent
 from agents.communication_agent import communication_agent
+from agents.route_from_parent import route_from_parent  
 
 graph = StateGraph(ReturnState)
 
@@ -20,7 +21,7 @@ graph.set_entry_point("parent")
 
 graph.add_conditional_edges(
     "parent",
-    parent_agent,
+    route_from_parent,
     {
         "policy_agent": "policy_agent",
         "communication_agent": "communication_agent"
@@ -36,6 +37,7 @@ app = graph.compile()
 
 result = app.invoke({
     "input": "I want to return my laptop"
+    # "input": "I want to cost my laptop"
 })
 
 print("Final Response:", result["response"])
