@@ -33,4 +33,4 @@ while True:
             "messages": [HumanMessage(content=user_input)]
         })
 
-        print(result)
+        print(result["messages"][-1].content)
