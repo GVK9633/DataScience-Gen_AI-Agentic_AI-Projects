@@ -44,4 +44,4 @@ result1 = app.invoke({
 # print(result1)
 print("AI: " + result["messages"][-1].content)
 print("AI-1: " + result1["messages"][-1].content)
-print(app.get_state(config=config))
+# print(app.get_state(config=config))
