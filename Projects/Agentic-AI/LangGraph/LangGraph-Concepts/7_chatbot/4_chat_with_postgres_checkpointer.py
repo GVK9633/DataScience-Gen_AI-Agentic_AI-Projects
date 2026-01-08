@@ -54,7 +54,8 @@ app = graph.compile(checkpointer=checkpointer)
 # ---------------- CONFIG ----------------
 config = {
     "configurable": {
-        "thread_id": "chat-user-1"  # important for persistence
+        "thread_id": "chat-user-1" , # important for persistence
+        "checkpoint_ns": "default"
     }
 }
 
@@ -72,3 +73,28 @@ while True:
     )
 
     print("AI:", result["messages"][-1].content)
+
+
+# DROP TABLE IF EXISTS checkpoint_blobs CASCADE;
+
+# CREATE TABLE checkpoint_blobs (
+#     id TEXT PRIMARY KEY,
+#     blob BYTEA NOT NULL
+# );
+
+# DROP TABLE IF EXISTS checkpoints CASCADE;
+
+# CREATE TABLE checkpoints (
+#     id TEXT PRIMARY KEY,
+#     thread_id TEXT NOT NULL,
+#     checkpoint_ns TEXT NOT NULL,
+#     checkpoint_id TEXT NOT NULL,
+#     parent_id TEXT,
+#     created_at TIMESTAMPTZ DEFAULT NOW(),
+#     metadata JSONB,
+#     FOREIGN KEY (checkpoint_id) REFERENCES checkpoint_blobs(id)
+# );
+
+# CREATE INDEX idx_checkpoints_thread
+# ON checkpoints(thread_id, checkpoint_ns, created_at DESC);
+
