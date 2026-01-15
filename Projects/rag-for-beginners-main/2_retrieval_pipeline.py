@@ -17,7 +17,7 @@ db = Chroma(
 
 # Search for relevant documents
 # query = "How much did Microsoft pay to acquire GitHub?"
-query = "What was NVIDIA's first graphics accelerator called?"
+query = "What was NVIDIA's first graphics accelerator called? in one line."
 
 retriever = db.as_retriever(search_kwargs={"k": 5})
 

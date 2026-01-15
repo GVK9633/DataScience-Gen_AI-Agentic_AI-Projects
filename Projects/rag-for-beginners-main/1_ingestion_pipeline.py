@@ -91,7 +91,7 @@ def main():
     # Define paths
     # docs_path = "docs"
     docs_path = os.path.join(current_dir, "docs")
-    persistent_directory = "db/chroma_db"
+    persistent_directory = "db/chroma_db-15"
     
     # Check if vector store already exists
     if os.path.exists(persistent_directory):
