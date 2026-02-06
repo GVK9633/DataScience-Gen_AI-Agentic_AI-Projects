@@ -9,3 +9,5 @@
 
 python3.10 -m venv ragpdf
 source ragpdf/bin/activate
+
+https://www.youtube.com/watch?v=ghnFmeY4bO4&list=PLB47zsuu0aAGTbcV0A0rtoOVgBWfCXaCT
