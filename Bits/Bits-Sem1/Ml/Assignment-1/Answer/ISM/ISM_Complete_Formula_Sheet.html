@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISM — Complete Formula Reference Sheet | BITS Pilani</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #0b0e14;
+  --bg2:      #111520;
+  --bg3:      #171c2b;
+  --bg4:      #1c2235;
+  --bg5:      #212840;
+  --gold:     #f5c842;
+  --blue:     #5ba4f5;
+  --teal:     #38d9c0;
+  --coral:    #ff7b7b;
+  --green:    #56d364;
+  --purple:   #b085f5;
+  --orange:   #f0943a;
+  --pink:     #f07ab5;
+  --sky:      #7fd3f7;
+  --lime:     #a8e063;
+  --txt:      #dde4f0;
+  --txt2:     #8a94ad;
+  --txt3:     #4e576b;
+  --border:   #262d42;
+  --border2:  #303a55;
+  --mono:     'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--txt);
+  font-family: 'Inter', sans-serif;
+  font-size: 14.5px;
+  line-height: 1.7;
+}
+
+/* ── COVER ── */
+.cover {
+  background: linear-gradient(135deg, #050810 0%, #0e1528 40%, #050810 100%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cover::before {
+  content: '';
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(91,164,245,0.08) 0%, transparent 70%);
+  top: -100px; left: -100px;
+  pointer-events: none;
+}
+.cover::after {
+  content: '';
+  position: absolute;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245,200,66,0.06) 0%, transparent 70%);
+  bottom: -80px; right: -80px;
+  pointer-events: none;
+}
+
+.cover-badge {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(245,200,66,0.3);
+  padding: 6px 18px;
+  border-radius: 20px;
+  margin-bottom: 28px;
+  background: rgba(245,200,66,0.06);
+}
+
+.cover h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 6vw, 64px);
+  font-weight: 900;
+  line-height: 1.1;
+  text-align: center;
+  color: #fff;
+  margin-bottom: 12px;
+  letter-spacing: -1px;
+}
+
+.cover h1 span { color: var(--gold); }
+
+.cover-sub {
+  font-size: 16px;
+  color: var(--txt2);
+  text-align: center;
+  max-width: 560px;
+  margin-bottom: 36px;
+}
+
+.cover-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 48px;
+}
+
+.tag {
+  font-size: 12px;
+  font-family: var(--mono);
+  padding: 5px 14px;
+  border-radius: 6px;
+  border: 1px solid;
+}
+
+.tag-blue  { color: var(--blue);   border-color: rgba(91,164,245,0.35);  background: rgba(91,164,245,0.08); }
+.tag-teal  { color: var(--teal);   border-color: rgba(56,217,192,0.35);  background: rgba(56,217,192,0.08); }
+.tag-gold  { color: var(--gold);   border-color: rgba(245,200,66,0.35);  background: rgba(245,200,66,0.08); }
+.tag-coral { color: var(--coral);  border-color: rgba(255,123,123,0.35); background: rgba(255,123,123,0.08); }
+.tag-green { color: var(--green);  border-color: rgba(86,211,100,0.35);  background: rgba(86,211,100,0.08); }
+.tag-purple{ color: var(--purple); border-color: rgba(176,133,245,0.35); background: rgba(176,133,245,0.08); }
+.tag-orange{ color: var(--orange); border-color: rgba(240,148,58,0.35);  background: rgba(240,148,58,0.08); }
+.tag-pink  { color: var(--pink);   border-color: rgba(240,122,181,0.35); background: rgba(240,122,181,0.08); }
+.tag-sky   { color: var(--sky);    border-color: rgba(127,211,247,0.35); background: rgba(127,211,247,0.08); }
+
+.cover-meta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.meta-box {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+  text-align: center;
+}
+
+.meta-box .label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--txt3); font-family: var(--mono); }
+.meta-box .value { font-size: 15px; font-weight: 700; color: var(--gold); margin-top: 4px; }
+
+/* ── TOC ── */
+.toc {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 48px 24px;
+}
+
+.toc-inner { max-width: 900px; margin: 0 auto; }
+
+.toc-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  color: var(--gold);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.toc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 10px;
+}
+
+.toc-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  text-decoration: none;
+  color: var(--txt);
+  transition: border-color 0.2s, background 0.2s;
+  font-size: 13px;
+}
+
+.toc-item:hover { border-color: var(--border2); background: var(--bg4); }
+
+.toc-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--txt3);
+  min-width: 22px;
+}
+
+.toc-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── CONTENT ── */
+.container { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+
+/* ── SECTION ── */
+.section {
+  padding: 64px 0 32px;
+  border-bottom: 1px solid var(--border);
+}
+
+.section-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.section-icon {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.section-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(22px, 4vw, 34px);
+  font-weight: 800;
+  line-height: 1.15;
+  color: #fff;
+}
+
+/* ── FORMULA CARDS ── */
+.formula-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.formula-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.formula-card-header {
+  padding: 12px 18px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: var(--mono);
+  border-bottom: 1px solid var(--border);
+}
+
+.formula-card-body { padding: 18px; }
+
+.formula-math {
+  background: var(--bg);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  padding: 16px 20px;
+  font-family: var(--mono);
+  font-size: 15px;
+  color: #fff;
+  margin-bottom: 14px;
+  text-align: center;
+  letter-spacing: 0.3px;
+  line-height: 1.8;
+  word-break: break-word;
+}
+
+.formula-math .big { font-size: 18px; }
+.formula-math .frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 4px; }
+.formula-math .num { border-bottom: 1.5px solid #fff; padding: 0 4px; }
+.formula-math .den { padding: 0 4px; }
+
+.legend { margin-bottom: 10px; }
+.legend-title { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--txt3); font-family: var(--mono); margin-bottom: 8px; }
+
+.legend-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 5px;
+  font-size: 13px;
+  align-items: baseline;
+}
+
+.sym {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 1px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.sym-def { color: var(--txt2); flex: 1; }
+
+/* colour band on left edge of formula-card */
+.fc-blue   { border-left: 3px solid var(--blue);   } .fc-blue   .formula-card-header { color: var(--blue);   background: rgba(91,164,245,0.07); }
+.fc-teal   { border-left: 3px solid var(--teal);   } .fc-teal   .formula-card-header { color: var(--teal);   background: rgba(56,217,192,0.07); }
+.fc-gold   { border-left: 3px solid var(--gold);   } .fc-gold   .formula-card-header { color: var(--gold);   background: rgba(245,200,66,0.07); }
+.fc-coral  { border-left: 3px solid var(--coral);  } .fc-coral  .formula-card-header { color: var(--coral);  background: rgba(255,123,123,0.07); }
+.fc-green  { border-left: 3px solid var(--green);  } .fc-green  .formula-card-header { color: var(--green);  background: rgba(86,211,100,0.07); }
+.fc-purple { border-left: 3px solid var(--purple); } .fc-purple .formula-card-header { color: var(--purple); background: rgba(176,133,245,0.07); }
+.fc-orange { border-left: 3px solid var(--orange); } .fc-orange .formula-card-header { color: var(--orange); background: rgba(240,148,58,0.07); }
+.fc-pink   { border-left: 3px solid var(--pink);   } .fc-pink   .formula-card-header { color: var(--pink);   background: rgba(240,122,181,0.07); }
+.fc-sky    { border-left: 3px solid var(--sky);    } .fc-sky    .formula-card-header { color: var(--sky);    background: rgba(127,211,247,0.07); }
+.fc-lime   { border-left: 3px solid var(--lime);   } .fc-lime   .formula-card-header { color: var(--lime);   background: rgba(168,224,99,0.07); }
+
+/* ── NOTE BOX ── */
+.note {
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-bottom: 14px;
+  font-size: 13px;
+  border: 1px solid;
+  display: flex; gap: 10px;
+}
+
+.note-icon { font-size: 16px; flex-shrink: 0; }
+.note-body { flex: 1; color: var(--txt2); }
+
+.note-warn  { background: rgba(240,148,58,0.07); border-color: rgba(240,148,58,0.25); }
+.note-info  { background: rgba(91,164,245,0.07); border-color: rgba(91,164,245,0.25); }
+.note-trap  { background: rgba(255,123,123,0.07); border-color: rgba(255,123,123,0.25); }
+.note-tip   { background: rgba(56,217,192,0.07); border-color: rgba(56,217,192,0.25); }
+
+/* ── COMPARISON TABLE ── */
+.compare-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 13px; }
+.compare-table th { background: var(--bg4); color: var(--txt2); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; padding: 10px 14px; border: 1px solid var(--border); font-family: var(--mono); font-weight: 500; }
+.compare-table td { padding: 10px 14px; border: 1px solid var(--border); vertical-align: top; }
+.compare-table tr:nth-child(even) td { background: var(--bg3); }
+.compare-table .mono { font-family: var(--mono); font-size: 12px; color: var(--gold); }
+
+/* ── MASTER CHEAT PANEL ── */
+.cheat-panel {
+  background: var(--bg);
+  border: 1px solid var(--border2);
+  border-radius: 16px;
+  overflow: hidden;
+  margin: 48px 0 64px;
+}
+
+.cheat-panel-header {
+  background: linear-gradient(90deg, rgba(245,200,66,0.12), transparent);
+  border-bottom: 1px solid var(--border2);
+  padding: 20px 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cheat-panel-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  color: var(--gold);
+}
+
+.cheat-section { padding: 24px 28px; border-bottom: 1px solid var(--border); }
+.cheat-section:last-child { border-bottom: none; }
+.cheat-section-title {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--txt3);
+  margin-bottom: 14px;
+}
+
+.cheat-row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 12px;
+  margin-bottom: 10px;
+  align-items: baseline;
+  font-size: 13px;
+}
+
+.cheat-name { color: var(--txt2); }
+.cheat-formula { font-family: var(--mono); font-size: 13px; color: var(--gold); }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  padding: 32px 24px;
+  text-align: center;
+  color: var(--txt3);
+  font-size: 12px;
+  font-family: var(--mono);
+}
+
+/* ── PRINT ── */
+@media print {
+  body { background: #fff; color: #111; font-size: 11px; }
+  .cover { min-height: auto; padding: 30px; background: #fff; border-bottom: 2px solid #111; }
+  .cover h1, .section-title { color: #111; }
+  .formula-card, .note { border-color: #ccc; background: #f5f5f5; }
+  .formula-math { background: #eee; color: #111; border-color: #bbb; }
+  .cheat-panel { background: #f5f5f5; border: 1px solid #bbb; }
+  .section { page-break-inside: avoid; }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 640px) {
+  .formula-grid { grid-template-columns: 1fr; }
+  .cover-meta { grid-template-columns: repeat(2, 1fr); }
+  .cheat-row { grid-template-columns: 1fr; }
+}
+
+/* divider line */
+.divider { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+
+/* inline highlight */
+code {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: var(--bg4);
+  color: var(--teal);
+}
+
+.sym-blue   { background: rgba(91,164,245,0.13);   color: var(--blue);   }
+.sym-teal   { background: rgba(56,217,192,0.13);   color: var(--teal);   }
+.sym-gold   { background: rgba(245,200,66,0.13);   color: var(--gold);   }
+.sym-coral  { background: rgba(255,123,123,0.13);  color: var(--coral);  }
+.sym-green  { background: rgba(86,211,100,0.13);   color: var(--green);  }
+.sym-purple { background: rgba(176,133,245,0.13);  color: var(--purple); }
+.sym-orange { background: rgba(240,148,58,0.13);   color: var(--orange); }
+.sym-pink   { background: rgba(240,122,181,0.13);  color: var(--pink);   }
+.sym-sky    { background: rgba(127,211,247,0.13);  color: var(--sky);    }
+</style>
+</head>
+<body>
+
+<!-- ══════════ COVER ══════════ -->
+<div class="cover">
+  <div class="cover-badge">📐 AIMLCZC418 / DSECLZC418</div>
+  <h1>ISM <span>Formula</span><br>Reference Sheet</h1>
+  <p class="cover-sub">Introduction to Statistical Methods · BITS Pilani WILPD<br>All formulas from Sessions 1–7 in one place</p>
+
+  <div class="cover-tags">
+    <span class="tag tag-blue">Descriptive Statistics</span>
+    <span class="tag tag-teal">Probability</span>
+    <span class="tag tag-gold">Distributions</span>
+    <span class="tag tag-coral">Hypothesis Testing</span>
+    <span class="tag tag-green">Regression</span>
+    <span class="tag tag-purple">ANOVA &amp; Chi-Square</span>
+    <span class="tag tag-orange">Sampling Theory</span>
+    <span class="tag tag-pink">Time Series</span>
+    <span class="tag tag-sky">Autocorrelation</span>
+  </div>
+
+  <div class="cover-meta">
+    <div class="meta-box"><div class="label">Sections</div><div class="value">9</div></div>
+    <div class="meta-box"><div class="label">Formulas</div><div class="value">60+</div></div>
+    <div class="meta-box"><div class="label">Sessions</div><div class="value">1–7</div></div>
+  </div>
+</div>
+
+<!-- ══════════ TOC ══════════ -->
+<div class="toc">
+  <div class="toc-inner">
+    <div class="toc-title">📑 Contents</div>
+    <div class="toc-grid">
+      <a href="#sec1" class="toc-item"><span class="toc-num">01</span><span class="toc-dot" style="background:var(--blue)"></span>Descriptive Statistics</a>
+      <a href="#sec2" class="toc-item"><span class="toc-num">02</span><span class="toc-dot" style="background:var(--teal)"></span>Probability</a>
+      <a href="#sec3" class="toc-item"><span class="toc-num">03</span><span class="toc-dot" style="background:var(--gold)"></span>Distributions (Discrete)</a>
+      <a href="#sec4" class="toc-item"><span class="toc-num">04</span><span class="toc-dot" style="background:var(--purple)"></span>Distributions (Continuous)</a>
+      <a href="#sec5" class="toc-item"><span class="toc-num">05</span><span class="toc-dot" style="background:var(--orange)"></span>Sampling Theory &amp; CLT</a>
+      <a href="#sec6" class="toc-item"><span class="toc-num">06</span><span class="toc-dot" style="background:var(--coral)"></span>Hypothesis Testing</a>
+      <a href="#sec7" class="toc-item"><span class="toc-num">07</span><span class="toc-dot" style="background:var(--green)"></span>Regression</a>
+      <a href="#sec8" class="toc-item"><span class="toc-num">08</span><span class="toc-dot" style="background:var(--pink)"></span>ANOVA &amp; Chi-Square</a>
+      <a href="#sec9" class="toc-item"><span class="toc-num">09</span><span class="toc-dot" style="background:var(--sky)"></span>Time Series &amp; Autocorrelation</a>
+      <a href="#cheatsheet" class="toc-item"><span class="toc-num">★</span><span class="toc-dot" style="background:var(--gold)"></span>Master Cheat Sheet</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ MAIN CONTENT ══════════ -->
+<div class="container">
+
+<!-- ─────── SECTION 1: DESCRIPTIVE STATISTICS ─────── -->
+<section class="section" id="sec1">
+  <div class="section-header">
+    <div class="section-icon" style="background:rgba(91,164,245,0.12); color:var(--blue);">📊</div>
+    <div>
+      <div class="section-num" style="color:var(--blue);">Section 01</div>
+      <div class="section-title">Descriptive Statistics</div>
+    </div>
+  </div>
+
+  <div class="formula-grid">
+
+    <div class="formula-card fc-blue">
+      <div class="formula-card-header">Mean (Arithmetic Average)</div>
+      <div class="formula-card-body">
+        <div class="formula-math">x̄ = (Σxᵢ) / n</div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-blue">x̄</span><span class="sym-def">Sample mean (pronounced "x-bar")</span></div>
+          <div class="legend-row"><span class="sym sym-blue">Σxᵢ</span><span class="sym-def">Sum of all individual data values</span></div>
+          <div class="legend-row"><span class="sym sym-blue">n</span><span class="sym-def">Number of data points in the sample</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-blue">
+      <div class="formula-card-header">Sample Variance</div>
+      <div class="formula-card-body">
+        <div class="formula-math">s² = Σ(xᵢ − x̄)² / (n − 1)</div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-blue">s²</span><span class="sym-def">Sample variance</span></div>
+          <div class="legend-row"><span class="sym sym-blue">xᵢ − x̄</span><span class="sym-def">Deviation of each value from the mean</span></div>
+          <div class="legend-row"><span class="sym sym-blue">n − 1</span><span class="sym-def">Degrees of freedom (use n-1 for sample, n for population)</span></div>
+        </div>
+        <div class="note note-warn"><span class="note-icon">⚠️</span><div class="note-body">Use <strong>n − 1</strong> for sample; use <strong>n</strong> for population (σ²). Using wrong denominator is the #1 exam error.</div></div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-blue">
+      <div class="formula-card-header">Standard Deviation</div>
+      <div class="formula-card-body">
+        <div class="formula-math">s = √[ Σ(xᵢ − x̄)² / (n − 1) ]</div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-blue">s</span><span class="sym-def">Sample standard deviation (same units as data)</span></div>
+          <div class="legend-row"><span class="sym sym-blue">σ</span><span class="sym-def">Population standard deviation (√(Σ(xᵢ − μ)²/N))</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-blue">
+      <div class="formula-card-header">Coefficient of Variation (CV)</div>
+      <div class="formula-card-body">
+        <div class="formula-math">CV = (s / x̄) × 100 %</div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-blue">CV</span><span class="sym-def">Relative variability as a percentage — allows comparison across different units</span></div>
+        </div>
+        <div class="note note-info"><span class="note-icon">💡</span><div class="note-body">Lower CV = more consistent data. Use to compare consistency across datasets with different means.</div></div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-blue">
+      <div class="formula-card-header">Quartiles &amp; IQR</div>
+      <div class="formula-card-body">
+        <div class="formula-math">IQR = Q3 − Q1</div>
+        <div class="formula-math" style="font-size:13px; margin-top:8px;">
+          Lower Fence = Q1 − 1.5 × IQR<br>
+          Upper Fence = Q3 + 1.5 × IQR
+        </div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-blue">Q1</span><span class="sym-def">25th percentile (lower quartile)</span></div>
+          <div class="legend-row"><span class="sym sym-blue">Q3</span><span class="sym-def">75th percentile (upper quartile)</span></div>
+          <div class="legend-row"><span class="sym sym-blue">IQR</span><span class="sym-def">Interquartile range — spread of middle 50%</span></div>
+        </div>
+        <div class="note note-trap"><span class="note-icon">🪤</span><div class="note-body">Outlier = any data point outside the fences. Always sort data first before computing quartiles!</div></div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-blue">
+      <div class="formula-card-header">Skewness Detection</div>
+      <div class="formula-card-body">
+        <div class="formula-math" style="font-size:13px; text-align:left; padding: 14px 16px;">
+          Right Skew: &nbsp;Mean &gt; Median &gt; Mode<br>
+          Symmetric: &nbsp;Mean = Median = Mode<br>
+          Left Skew: &nbsp;&nbsp;Mean &lt; Median &lt; Mode
+        </div>
+        <div class="note note-info"><span class="note-icon">💡</span><div class="note-body">Mean is pulled toward the tail. The tail tells you the direction of skew.</div></div>
+      </div>
+    </div>
+
+  </div><!-- /formula-grid -->
+</section>
+
+<!-- ─────── SECTION 2: PROBABILITY ─────── -->
+<section class="section" id="sec2">
+  <div class="section-header">
+    <div class="section-icon" style="background:rgba(56,217,192,0.12); color:var(--teal);">🎲</div>
+    <div>
+      <div class="section-num" style="color:var(--teal);">Section 02</div>
+      <div class="section-title">Probability</div>
+    </div>
+  </div>
+
+  <div class="formula-grid">
+
+    <div class="formula-card fc-teal">
+      <div class="formula-card-header">Classical Probability</div>
+      <div class="formula-card-body">
+        <div class="formula-math">P(A) = n(A) / n(S)</div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-teal">P(A)</span><span class="sym-def">Probability of event A</span></div>
+          <div class="legend-row"><span class="sym sym-teal">n(A)</span><span class="sym-def">Number of favorable outcomes</span></div>
+          <div class="legend-row"><span class="sym sym-teal">n(S)</span><span class="sym-def">Total number of equally likely outcomes (sample space)</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-teal">
+      <div class="formula-card-header">Addition Rule (Union)</div>
+      <div class="formula-card-body">
+        <div class="formula-math">P(A ∪ B) = P(A) + P(B) − P(A ∩ B)</div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-teal">∪</span><span class="sym-def">Union — A or B (or both) happen</span></div>
+          <div class="legend-row"><span class="sym sym-teal">∩</span><span class="sym-def">Intersection — both A and B happen</span></div>
+        </div>
+        <div class="note note-tip"><span class="note-icon">✅</span><div class="note-body">If mutually exclusive: P(A ∩ B) = 0, so P(A ∪ B) = P(A) + P(B)</div></div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-teal">
+      <div class="formula-card-header">Conditional Probability</div>
+      <div class="formula-card-body">
+        <div class="formula-math">P(A | B) = P(A ∩ B) / P(B)</div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-teal">P(A|B)</span><span class="sym-def">Probability of A given that B has already occurred</span></div>
+        </div>
+        <div class="note note-info"><span class="note-icon">💡</span><div class="note-body">For independent events: P(A|B) = P(A) — knowing B gives no info about A.</div></div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-teal">
+      <div class="formula-card-header">Independence Rule</div>
+      <div class="formula-card-body">
+        <div class="formula-math">P(A ∩ B) = P(A) × P(B) &nbsp;[if independent]</div>
+        <div class="formula-math" style="margin-top:8px;">P(Aᶜ ∩ Bᶜ) = P(Aᶜ) × P(Bᶜ) = (1−P(A))(1−P(B))</div>
+        <div class="note note-trap"><span class="note-icon">🪤</span><div class="note-body">Independent ≠ Mutually Exclusive! Independent: P(A∩B)=P(A)P(B)≠0. Mutually Exclusive: P(A∩B)=0.</div></div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-teal">
+      <div class="formula-card-header">Bayes' Theorem</div>
+      <div class="formula-card-body">
+        <div class="formula-math">P(A|B) = P(B|A)·P(A) / P(B)</div>
+        <div class="formula-math" style="margin-top:8px; font-size:12.5px;">
+          P(B) = P(B|A)·P(A) + P(B|Aᶜ)·P(Aᶜ)
+        </div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-teal">P(A)</span><span class="sym-def">Prior probability of A</span></div>
+          <div class="legend-row"><span class="sym sym-teal">P(B|A)</span><span class="sym-def">Likelihood — probability of evidence B given A</span></div>
+          <div class="legend-row"><span class="sym sym-teal">P(A|B)</span><span class="sym-def">Posterior — updated probability of A given evidence B</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-teal">
+      <div class="formula-card-header">Naïve Bayes Classifier</div>
+      <div class="formula-card-body">
+        <div class="formula-math" style="font-size:13px; text-align:left; line-height:2;">
+          P(Class | x₁,x₂,...,xₙ) ∝<br>
+          &nbsp;&nbsp;P(Class) × ∏ P(xᵢ | Class)
+        </div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-teal">∝</span><span class="sym-def">Proportional to (we pick the class with highest value)</span></div>
+          <div class="legend-row"><span class="sym sym-teal">∏</span><span class="sym-def">Product over all features (assumes feature independence)</span></div>
+        </div>
+        <div class="note note-warn"><span class="note-icon">⚠️</span><div class="note-body">Apply Laplace Smoothing (+1 to counts) if any feature probability = 0.</div></div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-teal">
+      <div class="formula-card-header">Combinations &amp; Permutations</div>
+      <div class="formula-card-body">
+        <div class="formula-math">C(n,r) = n! / [r!(n−r)!]</div>
+        <div class="formula-math" style="margin-top:8px;">P(n,r) = n! / (n−r)!</div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-teal">C(n,r)</span><span class="sym-def">Choose r from n — ORDER doesn't matter</span></div>
+          <div class="legend-row"><span class="sym sym-teal">P(n,r)</span><span class="sym-def">Arrange r from n — ORDER matters</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─────── SECTION 3: DISCRETE DISTRIBUTIONS ─────── -->
+<section class="section" id="sec3">
+  <div class="section-header">
+    <div class="section-icon" style="background:rgba(245,200,66,0.12); color:var(--gold);">🎯</div>
+    <div>
+      <div class="section-num" style="color:var(--gold);">Section 03</div>
+      <div class="section-title">Discrete Probability Distributions</div>
+    </div>
+  </div>
+
+  <div class="formula-grid">
+
+    <div class="formula-card fc-gold">
+      <div class="formula-card-header">PMF Validity Conditions</div>
+      <div class="formula-card-body">
+        <div class="formula-math">Σ P(X = x) = 1 &nbsp;for all x<br>0 ≤ P(X = x) ≤ 1</div>
+        <div class="note note-info"><span class="note-icon">💡</span><div class="note-body">A PMF is valid only if probabilities are non-negative AND sum to exactly 1. Use this to find unknown constant <em>k</em>.</div></div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-gold">
+      <div class="formula-card-header">Expected Value (Mean) E[X]</div>
+      <div class="formula-card-body">
+        <div class="formula-math">E[X] = μ = Σ x · P(X = x)</div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-gold">E[X]</span><span class="sym-def">Expected value = long-run average of X</span></div>
+          <div class="legend-row"><span class="sym sym-gold">x</span><span class="sym-def">Each possible value X can take</span></div>
+          <div class="legend-row"><span class="sym sym-gold">P(X=x)</span><span class="sym-def">Probability X equals that value</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-gold">
+      <div class="formula-card-header">Variance of X</div>
+      <div class="formula-card-body">
+        <div class="formula-math">Var(X) = E[X²] − (E[X])²</div>
+        <div class="formula-math" style="margin-top:8px;">E[X²] = Σ x² · P(X = x)</div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-gold">Var(X)</span><span class="sym-def">Variance = average squared deviation from mean</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-gold">
+      <div class="formula-card-header">Linear Transform of X</div>
+      <div class="formula-card-body">
+        <div class="formula-math">E[aX + b] = a·E[X] + b</div>
+        <div class="formula-math" style="margin-top:8px;">Var(aX + b) = a²·Var(X)</div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-gold">a, b</span><span class="sym-def">Constants (b shifts the distribution, a scales it)</span></div>
+        </div>
+        <div class="note note-trap"><span class="note-icon">🪤</span><div class="note-body">Variance of (aX+b): the constant <em>b</em> disappears! Only <em>a²</em> remains. Students often forget to square <em>a</em>.</div></div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-gold">
+      <div class="formula-card-header">Binomial Distribution</div>
+      <div class="formula-card-body">
+        <div class="formula-math">P(X = k) = C(n,k) · pᵏ · (1−p)ⁿ⁻ᵏ</div>
+        <div class="formula-math" style="margin-top:8px;">μ = np &nbsp;|&nbsp; σ² = np(1−p) &nbsp;|&nbsp; σ = √(np(1−p))</div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-gold">n</span><span class="sym-def">Number of independent trials</span></div>
+          <div class="legend-row"><span class="sym sym-gold">p</span><span class="sym-def">Probability of success on a single trial</span></div>
+          <div class="legend-row"><span class="sym sym-gold">k</span><span class="sym-def">Number of successes you want to find probability for</span></div>
+          <div class="legend-row"><span class="sym sym-gold">C(n,k)</span><span class="sym-def">Binomial coefficient — ways to arrange k successes in n trials</span></div>
+        </div>
+        <div class="note note-info"><span class="note-icon">💡</span><div class="note-body">Conditions: Fixed n trials, each trial independent, constant p, only 2 outcomes (success/failure).</div></div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-gold">
+      <div class="formula-card-header">Poisson Distribution</div>
+      <div class="formula-card-body">
+        <div class="formula-math">P(X = k) = (λᵏ · e⁻λ) / k!</div>
+        <div class="formula-math" style="margin-top:8px;">μ = λ &nbsp;|&nbsp; σ² = λ &nbsp;|&nbsp; σ = √λ</div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-gold">λ</span><span class="sym-def">Average rate of events per unit time/space (lambda)</span></div>
+          <div class="legend-row"><span class="sym sym-gold">e</span><span class="sym-def">Euler's number ≈ 2.71828</span></div>
+          <div class="legend-row"><span class="sym sym-gold">k!</span><span class="sym-def">k factorial (k × (k-1) × ... × 1)</span></div>
+        </div>
+        <div class="note note-info"><span class="note-icon">💡</span><div class="note-body">Poisson approximates Binomial when n is large and p is small: λ = np.</div></div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-gold">
+      <div class="formula-card-header">Joint PMF (Discrete)</div>
+      <div class="formula-card-body">
+        <div class="formula-math">P(X=x, Y=y) — given in a table</div>
+        <div class="formula-math" style="margin-top:8px; font-size:13px; text-align:left; line-height:2;">
+          Marginal X: P(X=x) = Σᵧ P(X=x, Y=y)<br>
+          Marginal Y: P(Y=y) = Σₓ P(X=x, Y=y)<br>
+          Conditional: P(X=x|Y=y) = P(X=x,Y=y)/P(Y=y)
+        </div>
+        <div class="note note-info"><span class="note-icon">💡</span><div class="note-body">X and Y are independent iff P(X=x,Y=y) = P(X=x)·P(Y=y) for ALL combinations.</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─────── SECTION 4: CONTINUOUS DISTRIBUTIONS ─────── -->
+<section class="section" id="sec4">
+  <div class="section-header">
+    <div class="section-icon" style="background:rgba(176,133,245,0.12); color:var(--purple);">〜</div>
+    <div>
+      <div class="section-num" style="color:var(--purple);">Section 04</div>
+      <div class="section-title">Continuous Probability Distributions</div>
+    </div>
+  </div>
+
+  <div class="formula-grid">
+
+    <div class="formula-card fc-purple">
+      <div class="formula-card-header">PDF Validity Conditions</div>
+      <div class="formula-card-body">
+        <div class="formula-math">∫ f(x) dx = 1 &nbsp;(over all x)<br>f(x) ≥ 0 for all x</div>
+        <div class="note note-info"><span class="note-icon">💡</span><div class="note-body">For continuous distributions, P(X = exact value) = 0. We only talk about probabilities over intervals: P(a ≤ X ≤ b) = ∫ₐᵇ f(x) dx.</div></div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-purple">
+      <div class="formula-card-header">Continuous E[X] and Var(X)</div>
+      <div class="formula-card-body">
+        <div class="formula-math">E[X] = ∫ x · f(x) dx</div>
+        <div class="formula-math" style="margin-top:8px;">E[X²] = ∫ x² · f(x) dx</div>
+        <div class="formula-math" style="margin-top:8px;">Var(X) = E[X²] − (E[X])²</div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-purple">
+      <div class="formula-card-header">Uniform Distribution U(a, b)</div>
+      <div class="formula-card-body">
+        <div class="formula-math">f(x) = 1/(b−a) &nbsp;for a ≤ x ≤ b</div>
+        <div class="formula-math" style="margin-top:8px;">μ = (a+b)/2 &nbsp;|&nbsp; σ² = (b−a)²/12</div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-purple">a, b</span><span class="sym-def">Lower and upper bounds of the uniform distribution</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-purple">
+      <div class="formula-card-header">Normal Distribution N(μ, σ²)</div>
+      <div class="formula-card-body">
+        <div class="formula-math">f(x) = (1/σ√(2π)) · e^(−(x−μ)²/2σ²)</div>
+        <div class="formula-math" style="margin-top:8px;">Z = (x − μ) / σ &nbsp;&nbsp;[standardise]</div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-purple">μ</span><span class="sym-def">Population mean (centre of the bell)</span></div>
+          <div class="legend-row"><span class="sym sym-purple">σ</span><span class="sym-def">Population standard deviation (spread/width)</span></div>
+          <div class="legend-row"><span class="sym sym-purple">Z</span><span class="sym-def">Standard normal variable — N(0,1)</span></div>
+        </div>
+        <div class="note note-info"><span class="note-icon">💡</span><div class="note-body">68–95–99.7 rule: ±1σ=68%, ±2σ=95%, ±3σ=99.7% of data.</div></div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-purple">
+      <div class="formula-card-header">Normal Approximation to Binomial</div>
+      <div class="formula-card-body">
+        <div class="formula-math">μ = np &nbsp;|&nbsp; σ = √(np(1−p))</div>
+        <div class="formula-math" style="margin-top:8px;">Z = (x ± 0.5 − np) / √(np(1−p))</div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-purple">±0.5</span><span class="sym-def">Continuity correction (+0.5 for ≤, −0.5 for ≥)</span></div>
+        </div>
+        <div class="note note-warn"><span class="note-icon">⚠️</span><div class="note-body">Use when n is large (n≥30). Apply continuity correction: P(X &lt; k) → P(X &lt; k − 0.5).</div></div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-purple">
+      <div class="formula-card-header">Joint Continuous PDF</div>
+      <div class="formula-card-body">
+        <div class="formula-math" style="font-size:13px; text-align:left; line-height:2.2;">
+          ∫∫ f(x,y) dx dy = 1<br>
+          f_X(x) = ∫ f(x,y) dy &nbsp;[Marginal of X]<br>
+          f_Y(y) = ∫ f(x,y) dx &nbsp;[Marginal of Y]<br>
+          Independent if f(x,y) = f_X(x)·f_Y(y)
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─────── SECTION 5: SAMPLING THEORY & CLT ─────── -->
+<section class="section" id="sec5">
+  <div class="section-header">
+    <div class="section-icon" style="background:rgba(240,148,58,0.12); color:var(--orange);">🔬</div>
+    <div>
+      <div class="section-num" style="color:var(--orange);">Section 05</div>
+      <div class="section-title">Sampling Theory &amp; Central Limit Theorem</div>
+    </div>
+  </div>
+
+  <div class="formula-grid">
+
+    <div class="formula-card fc-orange">
+      <div class="formula-card-header">Standard Error of the Mean</div>
+      <div class="formula-card-body">
+        <div class="formula-math">SE = σ / √n &nbsp;&nbsp;(or s/√n for sample)</div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-orange">SE</span><span class="sym-def">Standard Error — how much the sample mean varies from sample to sample</span></div>
+          <div class="legend-row"><span class="sym sym-orange">σ</span><span class="sym-def">Population standard deviation</span></div>
+          <div class="legend-row"><span class="sym sym-orange">n</span><span class="sym-def">Sample size — larger n → smaller SE → more precise</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-orange">
+      <div class="formula-card-header">Central Limit Theorem (CLT)</div>
+      <div class="formula-card-body">
+        <div class="formula-math">x̄ ~ N(μ, σ²/n) &nbsp;as n → ∞</div>
+        <div class="formula-math" style="margin-top:8px;">Z = (x̄ − μ) / (σ/√n)</div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-orange">x̄</span><span class="sym-def">Sample mean of n observations</span></div>
+          <div class="legend-row"><span class="sym sym-orange">μ</span><span class="sym-def">True population mean</span></div>
+        </div>
+        <div class="note note-info"><span class="note-icon">💡</span><div class="note-body">Works for ANY population shape if n ≥ 30. If population is already Normal, CLT holds for any n.</div></div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-orange">
+      <div class="formula-card-header">Sample Size Formula (Margin of Error)</div>
+      <div class="formula-card-body">
+        <div class="formula-math">n = (z · σ / ME)²</div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-orange">ME</span><span class="sym-def">Desired margin of error (half-width of CI)</span></div>
+          <div class="legend-row"><span class="sym sym-orange">z</span><span class="sym-def">Critical z-value for confidence level (e.g., 1.96 for 95%)</span></div>
+          <div class="legend-row"><span class="sym sym-orange">σ</span><span class="sym-def">Known or estimated population standard deviation</span></div>
+        </div>
+        <div class="note note-warn"><span class="note-icon">⚠️</span><div class="note-body">Always round UP to the next whole number for sample size.</div></div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-orange">
+      <div class="formula-card-header">Confidence Interval for Mean (σ known)</div>
+      <div class="formula-card-body">
+        <div class="formula-math">CI: &nbsp;x̄ ± z_(α/2) · (σ/√n)</div>
+        <div class="legend">
+          <div class="legend-title">Common z-values</div>
+          <div class="legend-row"><span class="sym sym-orange">90%</span><span class="sym-def">z = 1.645</span></div>
+          <div class="legend-row"><span class="sym sym-orange">95%</span><span class="sym-def">z = 1.96</span></div>
+          <div class="legend-row"><span class="sym sym-orange">99%</span><span class="sym-def">z = 2.576</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-orange">
+      <div class="formula-card-header">Confidence Interval for Mean (σ unknown)</div>
+      <div class="formula-card-body">
+        <div class="formula-math">CI: &nbsp;x̄ ± t_(α/2, n−1) · (s/√n)</div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-orange">t_(α/2, n−1)</span><span class="sym-def">t-critical value with df = n−1 (from t-table)</span></div>
+          <div class="legend-row"><span class="sym sym-orange">s</span><span class="sym-def">Sample standard deviation</span></div>
+        </div>
+        <div class="note note-warn"><span class="note-icon">⚠️</span><div class="note-body">Use t (not z) when σ is unknown AND sample size is small (&lt;30).</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─────── SECTION 6: HYPOTHESIS TESTING ─────── -->
+<section class="section" id="sec6">
+  <div class="section-header">
+    <div class="section-icon" style="background:rgba(255,123,123,0.12); color:var(--coral);">⚖️</div>
+    <div>
+      <div class="section-num" style="color:var(--coral);">Section 06</div>
+      <div class="section-title">Hypothesis Testing</div>
+    </div>
+  </div>
+
+  <div class="formula-grid">
+
+    <div class="formula-card fc-coral">
+      <div class="formula-card-header">One-Sample Z-Test (σ known)</div>
+      <div class="formula-card-body">
+        <div class="formula-math">z_cal = (x̄ − μ₀) / (σ/√n)</div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-coral">x̄</span><span class="sym-def">Observed sample mean</span></div>
+          <div class="legend-row"><span class="sym sym-coral">μ₀</span><span class="sym-def">Hypothesized population mean (from H₀)</span></div>
+          <div class="legend-row"><span class="sym sym-coral">σ/√n</span><span class="sym-def">Standard error of the mean</span></div>
+        </div>
+        <div class="note note-info"><span class="note-icon">💡</span><div class="note-body">Decision: Reject H₀ if |z_cal| &gt; z_tab. Critical values: 1-tail=1.645 (5%), 2-tail=1.96 (5%).</div></div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-coral">
+      <div class="formula-card-header">One-Sample t-Test (σ unknown)</div>
+      <div class="formula-card-body">
+        <div class="formula-math">t_cal = (x̄ − μ₀) / (s/√n)</div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-coral">s</span><span class="sym-def">Sample standard deviation</span></div>
+          <div class="legend-row"><span class="sym sym-coral">df</span><span class="sym-def">Degrees of freedom = n − 1</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-coral">
+      <div class="formula-card-header">Two-Sample t-Test (Independent)</div>
+      <div class="formula-card-body">
+        <div class="formula-math">t_cal = (x̄₁ − x̄₂) / √(s₁²/n₁ + s₂²/n₂)</div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-coral">x̄₁, x̄₂</span><span class="sym-def">Sample means of groups 1 and 2</span></div>
+          <div class="legend-row"><span class="sym sym-coral">s₁², s₂²</span><span class="sym-def">Sample variances of groups 1 and 2</span></div>
+          <div class="legend-row"><span class="sym sym-coral">n₁, n₂</span><span class="sym-def">Sample sizes of groups 1 and 2</span></div>
+          <div class="legend-row"><span class="sym sym-coral">df</span><span class="sym-def">= n₁ + n₂ − 2</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-coral">
+      <div class="formula-card-header">Hypothesis Test Decision Rule</div>
+      <div class="formula-card-body">
+        <div class="formula-math" style="font-size:13px; text-align:left; line-height:2.2;">
+          Two-tailed: H₁: μ ≠ μ₀ → reject if |t_cal| &gt; t_tab<br>
+          Right-tail:  H₁: μ &gt; μ₀ → reject if t_cal &gt; t_tab<br>
+          Left-tail:   H₁: μ &lt; μ₀ → reject if t_cal &lt; −t_tab
+        </div>
+        <div class="note note-trap"><span class="note-icon">🪤</span><div class="note-body">Failing to reject H₀ does NOT prove H₀ is true — it only means insufficient evidence to reject it.</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Type I/II errors table -->
+  <table class="compare-table" style="margin-top:8px;">
+    <tr>
+      <th>Error Type</th>
+      <th>Definition</th>
+      <th>Probability</th>
+      <th>Controlled By</th>
+    </tr>
+    <tr>
+      <td>Type I (α)</td>
+      <td>Reject H₀ when H₀ is actually TRUE</td>
+      <td class="mono">α (significance level)</td>
+      <td>Researcher sets α (e.g., 0.05)</td>
+    </tr>
+    <tr>
+      <td>Type II (β)</td>
+      <td>Fail to reject H₀ when H₀ is FALSE</td>
+      <td class="mono">β</td>
+      <td>Increase sample size n</td>
+    </tr>
+    <tr>
+      <td>Power (1−β)</td>
+      <td>Correctly reject a false H₀</td>
+      <td class="mono">1 − β</td>
+      <td>Larger n → higher power</td>
+    </tr>
+  </table>
+</section>
+
+<!-- ─────── SECTION 7: REGRESSION ─────── -->
+<section class="section" id="sec7">
+  <div class="section-header">
+    <div class="section-icon" style="background:rgba(86,211,100,0.12); color:var(--green);">📈</div>
+    <div>
+      <div class="section-num" style="color:var(--green);">Section 07</div>
+      <div class="section-title">Simple Linear Regression</div>
+    </div>
+  </div>
+
+  <div class="formula-grid">
+
+    <div class="formula-card fc-green">
+      <div class="formula-card-header">Regression Line Equation</div>
+      <div class="formula-card-body">
+        <div class="formula-math">Ŷ = β₀ + β₁X</div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-green">Ŷ</span><span class="sym-def">Predicted (fitted) value of Y (Y-hat)</span></div>
+          <div class="legend-row"><span class="sym sym-green">β₀</span><span class="sym-def">Intercept — predicted Y when X = 0</span></div>
+          <div class="legend-row"><span class="sym sym-green">β₁</span><span class="sym-def">Slope — change in Y for each 1-unit increase in X</span></div>
+          <div class="legend-row"><span class="sym sym-green">X</span><span class="sym-def">Independent (predictor) variable</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-green">
+      <div class="formula-card-header">Slope β₁ and Intercept β₀</div>
+      <div class="formula-card-body">
+        <div class="formula-math">β₁ = Σ(xᵢ−x̄)(yᵢ−ȳ) / Σ(xᵢ−x̄)²</div>
+        <div class="formula-math" style="margin-top:8px;">β₀ = ȳ − β₁·x̄</div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-green">x̄, ȳ</span><span class="sym-def">Sample means of X and Y</span></div>
+          <div class="legend-row"><span class="sym sym-green">Σ(xᵢ−x̄)(yᵢ−ȳ)</span><span class="sym-def">Sum of cross-deviations (numerator)</span></div>
+          <div class="legend-row"><span class="sym sym-green">Σ(xᵢ−x̄)²</span><span class="sym-def">Sum of squared X-deviations (denominator)</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-green">
+      <div class="formula-card-header">Correlation Coefficient r</div>
+      <div class="formula-card-body">
+        <div class="formula-math">r = Σ(xᵢ−x̄)(yᵢ−ȳ) / [√Σ(xᵢ−x̄)² · √Σ(yᵢ−ȳ)²]</div>
+        <div class="legend">
+          <div class="legend-title">Interpreting r</div>
+          <div class="legend-row"><span class="sym sym-green">r = +1</span><span class="sym-def">Perfect positive linear relationship</span></div>
+          <div class="legend-row"><span class="sym sym-green">r = −1</span><span class="sym-def">Perfect negative linear relationship</span></div>
+          <div class="legend-row"><span class="sym sym-green">r = 0</span><span class="sym-def">No linear relationship</span></div>
+        </div>
+        <div class="note note-warn"><span class="note-icon">⚠️</span><div class="note-body">r measures linear association only. A curved relationship can have r ≈ 0!</div></div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-green">
+      <div class="formula-card-header">Sign of β₁ and Relationship Direction</div>
+      <div class="formula-card-body">
+        <div class="formula-math" style="font-size:13px; text-align:left; line-height:2.2;">
+          β₁ &gt; 0 → Positive relationship (Y increases as X increases)<br>
+          β₁ &lt; 0 → Negative relationship (Y decreases as X increases)<br>
+          β₁ = 0 → No linear relationship
+        </div>
+        <div class="note note-info"><span class="note-icon">💡</span><div class="note-body">Sign of β₁ always equals sign of r (correlation).</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─────── SECTION 8: ANOVA & CHI-SQUARE ─────── -->
+<section class="section" id="sec8">
+  <div class="section-header">
+    <div class="section-icon" style="background:rgba(176,133,245,0.12); color:var(--purple);">🔬</div>
+    <div>
+      <div class="section-num" style="color:var(--purple);">Section 08</div>
+      <div class="section-title">One-Way ANOVA &amp; Chi-Square Test</div>
+    </div>
+  </div>
+
+  <div class="formula-grid">
+
+    <div class="formula-card fc-purple">
+      <div class="formula-card-header">One-Way ANOVA F-Statistic</div>
+      <div class="formula-card-body">
+        <div class="formula-math">F = MSB / MSW &nbsp;= (SSB/df_B) / (SSW/df_W)</div>
+        <div class="formula-math" style="margin-top:8px; font-size:13px; text-align:left; line-height:2.2;">
+          SST = SSB + SSW<br>
+          df_B = k − 1 &nbsp;(between groups)<br>
+          df_W = N − k &nbsp;(within groups)<br>
+          df_T = N − 1 &nbsp;(total)
+        </div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-purple">MSB</span><span class="sym-def">Mean Square Between groups = SSB / (k−1)</span></div>
+          <div class="legend-row"><span class="sym sym-purple">MSW</span><span class="sym-def">Mean Square Within groups = SSW / (N−k)</span></div>
+          <div class="legend-row"><span class="sym sym-purple">k</span><span class="sym-def">Number of groups</span></div>
+          <div class="legend-row"><span class="sym sym-purple">N</span><span class="sym-def">Total number of observations across all groups</span></div>
+        </div>
+        <div class="note note-info"><span class="note-icon">💡</span><div class="note-body">If F_cal &gt; F_tab: reject H₀ — at least one group mean is different.</div></div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-purple">
+      <div class="formula-card-header">ANOVA Sums of Squares</div>
+      <div class="formula-card-body">
+        <div class="formula-math" style="font-size:13px; text-align:left; line-height:2.3;">
+          Grand Mean: x̄̄ = (ΣΣxᵢⱼ) / N<br>
+          SSB = Σᵢ nᵢ(x̄ᵢ − x̄̄)²<br>
+          SSW = ΣᵢΣⱼ (xᵢⱼ − x̄ᵢ)²<br>
+          SST = ΣᵢΣⱼ (xᵢⱼ − x̄̄)²
+        </div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-purple">x̄ᵢ</span><span class="sym-def">Mean of group i</span></div>
+          <div class="legend-row"><span class="sym sym-purple">nᵢ</span><span class="sym-def">Number of observations in group i</span></div>
+          <div class="legend-row"><span class="sym sym-purple">xᵢⱼ</span><span class="sym-def">j-th observation in group i</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-purple">
+      <div class="formula-card-header">Chi-Square Test of Independence</div>
+      <div class="formula-card-body">
+        <div class="formula-math">χ² = Σ [(O − E)² / E]</div>
+        <div class="formula-math" style="margin-top:8px;">E = (Row Total × Column Total) / Grand Total</div>
+        <div class="formula-math" style="margin-top:8px;">df = (r − 1)(c − 1)</div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-purple">O</span><span class="sym-def">Observed frequency (from the data)</span></div>
+          <div class="legend-row"><span class="sym sym-purple">E</span><span class="sym-def">Expected frequency (calculated from totals)</span></div>
+          <div class="legend-row"><span class="sym sym-purple">r, c</span><span class="sym-def">Number of rows and columns in the contingency table</span></div>
+        </div>
+        <div class="note note-info"><span class="note-icon">💡</span><div class="note-body">H₀: variables are independent. Reject H₀ if χ²_cal &gt; χ²_tab.</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─────── SECTION 9: TIME SERIES & AUTOCORRELATION ─────── -->
+<section class="section" id="sec9">
+  <div class="section-header">
+    <div class="section-icon" style="background:rgba(127,211,247,0.12); color:var(--sky);">📉</div>
+    <div>
+      <div class="section-num" style="color:var(--sky);">Section 09</div>
+      <div class="section-title">Time Series &amp; Autocorrelation</div>
+    </div>
+  </div>
+
+  <div class="formula-grid">
+
+    <div class="formula-card fc-sky">
+      <div class="formula-card-header">k-Period Moving Average</div>
+      <div class="formula-card-body">
+        <div class="formula-math">MAₜ = (Yₜ + Yₜ₋₁ + ... + Yₜ₋ₖ₊₁) / k</div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-sky">MAₜ</span><span class="sym-def">Moving average at time t</span></div>
+          <div class="legend-row"><span class="sym sym-sky">Yₜ</span><span class="sym-def">Actual value at time t</span></div>
+          <div class="legend-row"><span class="sym sym-sky">k</span><span class="sym-def">Number of periods in the moving average window</span></div>
+        </div>
+        <div class="note note-info"><span class="note-icon">💡</span><div class="note-body">Forecast for next period = last computed moving average.</div></div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-sky">
+      <div class="formula-card-header">Simple Exponential Smoothing (SES)</div>
+      <div class="formula-card-body">
+        <div class="formula-math">Fₜ₊₁ = α·Yₜ + (1−α)·Fₜ</div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-sky">Fₜ₊₁</span><span class="sym-def">Forecast for next period</span></div>
+          <div class="legend-row"><span class="sym sym-sky">α</span><span class="sym-def">Smoothing constant (0 &lt; α &lt; 1) — higher α = more weight on recent data</span></div>
+          <div class="legend-row"><span class="sym sym-sky">Yₜ</span><span class="sym-def">Actual value at current period t</span></div>
+          <div class="legend-row"><span class="sym sym-sky">Fₜ</span><span class="sym-def">Current period forecast</span></div>
+        </div>
+        <div class="note note-warn"><span class="note-icon">⚠️</span><div class="note-body">SES does NOT capture trend. Use Holt's method when data has a trend.</div></div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-sky">
+      <div class="formula-card-header">Holt's Double Exponential Smoothing</div>
+      <div class="formula-card-body">
+        <div class="formula-math" style="font-size:13px; text-align:left; line-height:2.3;">
+          Level: &nbsp;Lₜ = α·Yₜ + (1−α)(Lₜ₋₁ + Tₜ₋₁)<br>
+          Trend: &nbsp;Tₜ = β(Lₜ − Lₜ₋₁) + (1−β)Tₜ₋₁<br>
+          Forecast: Fₜ₊ₘ = Lₜ + m·Tₜ
+        </div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-sky">α</span><span class="sym-def">Level smoothing constant</span></div>
+          <div class="legend-row"><span class="sym sym-sky">β</span><span class="sym-def">Trend smoothing constant</span></div>
+          <div class="legend-row"><span class="sym sym-sky">Lₜ</span><span class="sym-def">Smoothed level at time t</span></div>
+          <div class="legend-row"><span class="sym sym-sky">Tₜ</span><span class="sym-def">Smoothed trend at time t</span></div>
+          <div class="legend-row"><span class="sym sym-sky">m</span><span class="sym-def">Number of periods ahead to forecast</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="formula-card fc-sky">
+      <div class="formula-card-header">Lag-1 Autocorrelation Coefficient r₁</div>
+      <div class="formula-card-body">
+        <div class="formula-math">r₁ = Σ(Xₜ − X̄)(Xₜ₋₁ − X̄) / Σ(Xₜ − X̄)²</div>
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-row"><span class="sym sym-sky">r₁</span><span class="sym-def">Lag-1 autocorrelation — correlation between consecutive observations</span></div>
+          <div class="legend-row"><span class="sym sym-sky">Xₜ</span><span class="sym-def">Value at time t</span></div>
+          <div class="legend-row"><span class="sym sym-sky">Xₜ₋₁</span><span class="sym-def">Value at time t−1 (one step back)</span></div>
+          <div class="legend-row"><span class="sym sym-sky">X̄</span><span class="sym-def">Mean of the entire series</span></div>
+        </div>
+        <div class="note note-info"><span class="note-icon">💡</span><div class="note-body">r₁ &gt; 0: positive persistence (high values follow high values). r₁ ≈ 0: no autocorrelation.</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Comparison table: when to use which method -->
+  <table class="compare-table" style="margin-top: 12px;">
+    <tr>
+      <th>Method</th>
+      <th>Best For</th>
+      <th>Captures Trend?</th>
+      <th>Key Parameter</th>
+    </tr>
+    <tr>
+      <td>Moving Average</td>
+      <td>Stable (no trend) data</td>
+      <td>No</td>
+      <td class="mono">k (window size)</td>
+    </tr>
+    <tr>
+      <td>SES</td>
+      <td>Stable / slowly changing data</td>
+      <td>No</td>
+      <td class="mono">α (0–1)</td>
+    </tr>
+    <tr>
+      <td>Holt's Double</td>
+      <td>Data with trend</td>
+      <td>Yes</td>
+      <td class="mono">α, β (0–1 each)</td>
+    </tr>
+  </table>
+</section>
+
+<!-- ══════════ MASTER CHEAT SHEET ══════════ -->
+<div class="cheat-panel" id="cheatsheet" style="margin-top: 64px;">
+  <div class="cheat-panel-header">
+    <span style="font-size:24px;">⭐</span>
+    <h2>Master Cheat Sheet — All Formulas at a Glance</h2>
+  </div>
+
+  <!-- 1. Descriptive -->
+  <div class="cheat-section">
+    <div class="cheat-section-title" style="color:var(--blue);">01 · Descriptive Statistics</div>
+    <div class="cheat-row"><span class="cheat-name">Mean</span><span class="cheat-formula">x̄ = Σxᵢ / n</span></div>
+    <div class="cheat-row"><span class="cheat-name">Sample Variance</span><span class="cheat-formula">s² = Σ(xᵢ−x̄)² / (n−1)</span></div>
+    <div class="cheat-row"><span class="cheat-name">Population Variance</span><span class="cheat-formula">σ² = Σ(xᵢ−μ)² / N</span></div>
+    <div class="cheat-row"><span class="cheat-name">Standard Deviation</span><span class="cheat-formula">s = √s²</span></div>
+    <div class="cheat-row"><span class="cheat-name">CV (Consistency)</span><span class="cheat-formula">CV = (s/x̄) × 100%</span></div>
+    <div class="cheat-row"><span class="cheat-name">IQR</span><span class="cheat-formula">IQR = Q3 − Q1</span></div>
+    <div class="cheat-row"><span class="cheat-name">Outlier Fences</span><span class="cheat-formula">Q1−1.5×IQR &nbsp;to&nbsp; Q3+1.5×IQR</span></div>
+  </div>
+
+  <!-- 2. Probability -->
+  <div class="cheat-section">
+    <div class="cheat-section-title" style="color:var(--teal);">02 · Probability</div>
+    <div class="cheat-row"><span class="cheat-name">Classical P</span><span class="cheat-formula">P(A) = n(A)/n(S)</span></div>
+    <div class="cheat-row"><span class="cheat-name">Union</span><span class="cheat-formula">P(A∪B) = P(A)+P(B)−P(A∩B)</span></div>
+    <div class="cheat-row"><span class="cheat-name">Conditional</span><span class="cheat-formula">P(A|B) = P(A∩B)/P(B)</span></div>
+    <div class="cheat-row"><span class="cheat-name">Independence</span><span class="cheat-formula">P(A∩B) = P(A)·P(B)</span></div>
+    <div class="cheat-row"><span class="cheat-name">Complement</span><span class="cheat-formula">P(Aᶜ) = 1 − P(A)</span></div>
+    <div class="cheat-row"><span class="cheat-name">Bayes'</span><span class="cheat-formula">P(A|B) = P(B|A)·P(A) / P(B)</span></div>
+    <div class="cheat-row"><span class="cheat-name">Combinations</span><span class="cheat-formula">C(n,r) = n!/[r!(n−r)!]</span></div>
+    <div class="cheat-row"><span class="cheat-name">Permutations</span><span class="cheat-formula">P(n,r) = n!/(n−r)!</span></div>
+  </div>
+
+  <!-- 3. Distributions -->
+  <div class="cheat-section">
+    <div class="cheat-section-title" style="color:var(--gold);">03–04 · Distributions</div>
+    <div class="cheat-row"><span class="cheat-name">E[X] discrete</span><span class="cheat-formula">Σ x·P(X=x)</span></div>
+    <div class="cheat-row"><span class="cheat-name">Var(X)</span><span class="cheat-formula">E[X²] − (E[X])²</span></div>
+    <div class="cheat-row"><span class="cheat-name">E[aX+b]</span><span class="cheat-formula">a·E[X] + b</span></div>
+    <div class="cheat-row"><span class="cheat-name">Var(aX+b)</span><span class="cheat-formula">a²·Var(X)</span></div>
+    <div class="cheat-row"><span class="cheat-name">Binomial PMF</span><span class="cheat-formula">C(n,k)·pᵏ·(1−p)ⁿ⁻ᵏ</span></div>
+    <div class="cheat-row"><span class="cheat-name">Binomial μ, σ²</span><span class="cheat-formula">np &nbsp;|&nbsp; np(1−p)</span></div>
+    <div class="cheat-row"><span class="cheat-name">Poisson PMF</span><span class="cheat-formula">λᵏ·e⁻λ / k!</span></div>
+    <div class="cheat-row"><span class="cheat-name">Poisson μ = σ²</span><span class="cheat-formula">λ</span></div>
+    <div class="cheat-row"><span class="cheat-name">Normal standardise</span><span class="cheat-formula">Z = (x−μ)/σ</span></div>
+    <div class="cheat-row"><span class="cheat-name">Normal approx. Z</span><span class="cheat-formula">Z = (x±0.5−np)/√(np(1−p))</span></div>
+    <div class="cheat-row"><span class="cheat-name">Uniform μ</span><span class="cheat-formula">(a+b)/2</span></div>
+    <div class="cheat-row"><span class="cheat-name">Uniform σ²</span><span class="cheat-formula">(b−a)²/12</span></div>
+  </div>
+
+  <!-- 5. Sampling -->
+  <div class="cheat-section">
+    <div class="cheat-section-title" style="color:var(--orange);">05 · Sampling &amp; CLT</div>
+    <div class="cheat-row"><span class="cheat-name">Standard Error</span><span class="cheat-formula">SE = σ/√n</span></div>
+    <div class="cheat-row"><span class="cheat-name">CLT Z for x̄</span><span class="cheat-formula">Z = (x̄−μ)/(σ/√n)</span></div>
+    <div class="cheat-row"><span class="cheat-name">CI (σ known)</span><span class="cheat-formula">x̄ ± z_(α/2)·σ/√n</span></div>
+    <div class="cheat-row"><span class="cheat-name">CI (σ unknown)</span><span class="cheat-formula">x̄ ± t_(α/2,n−1)·s/√n</span></div>
+    <div class="cheat-row"><span class="cheat-name">Sample Size n</span><span class="cheat-formula">n = (z·σ/ME)²</span></div>
+    <div class="cheat-row"><span class="cheat-name">z-values</span><span class="cheat-formula">90%=1.645 | 95%=1.96 | 99%=2.576</span></div>
+  </div>
+
+  <!-- 6. Hypothesis -->
+  <div class="cheat-section">
+    <div class="cheat-section-title" style="color:var(--coral);">06 · Hypothesis Testing</div>
+    <div class="cheat-row"><span class="cheat-name">Z-test (1-sample)</span><span class="cheat-formula">z = (x̄−μ₀)/(σ/√n)</span></div>
+    <div class="cheat-row"><span class="cheat-name">t-test (1-sample)</span><span class="cheat-formula">t = (x̄−μ₀)/(s/√n)</span></div>
+    <div class="cheat-row"><span class="cheat-name">2-sample t-test</span><span class="cheat-formula">t = (x̄₁−x̄₂)/√(s₁²/n₁+s₂²/n₂)</span></div>
+    <div class="cheat-row"><span class="cheat-name">df (2-sample)</span><span class="cheat-formula">n₁ + n₂ − 2</span></div>
+    <div class="cheat-row"><span class="cheat-name">Reject H₀ if</span><span class="cheat-formula">|t_cal| &gt; t_tab</span></div>
+  </div>
+
+  <!-- 7. Regression -->
+  <div class="cheat-section">
+    <div class="cheat-section-title" style="color:var(--green);">07 · Regression</div>
+    <div class="cheat-row"><span class="cheat-name">Line</span><span class="cheat-formula">Ŷ = β₀ + β₁X</span></div>
+    <div class="cheat-row"><span class="cheat-name">Slope β₁</span><span class="cheat-formula">Σ(xᵢ−x̄)(yᵢ−ȳ) / Σ(xᵢ−x̄)²</span></div>
+    <div class="cheat-row"><span class="cheat-name">Intercept β₀</span><span class="cheat-formula">ȳ − β₁·x̄</span></div>
+    <div class="cheat-row"><span class="cheat-name">Correlation r</span><span class="cheat-formula">Σ(xᵢ−x̄)(yᵢ−ȳ) / [√Σ(xᵢ−x̄)²·√Σ(yᵢ−ȳ)²]</span></div>
+  </div>
+
+  <!-- 8. ANOVA & Chi-Square -->
+  <div class="cheat-section">
+    <div class="cheat-section-title" style="color:var(--purple);">08 · ANOVA &amp; Chi-Square</div>
+    <div class="cheat-row"><span class="cheat-name">F-statistic</span><span class="cheat-formula">F = MSB/MSW = (SSB/(k−1))/(SSW/(N−k))</span></div>
+    <div class="cheat-row"><span class="cheat-name">SSB</span><span class="cheat-formula">Σ nᵢ(x̄ᵢ − x̄̄)²</span></div>
+    <div class="cheat-row"><span class="cheat-name">SSW</span><span class="cheat-formula">ΣΣ(xᵢⱼ − x̄ᵢ)²</span></div>
+    <div class="cheat-row"><span class="cheat-name">Chi-Square</span><span class="cheat-formula">χ² = Σ[(O−E)²/E]</span></div>
+    <div class="cheat-row"><span class="cheat-name">Expected E</span><span class="cheat-formula">(Row Total × Col Total) / Grand Total</span></div>
+    <div class="cheat-row"><span class="cheat-name">df (χ²)</span><span class="cheat-formula">(r−1)(c−1)</span></div>
+  </div>
+
+  <!-- 9. Time Series -->
+  <div class="cheat-section">
+    <div class="cheat-section-title" style="color:var(--sky);">09 · Time Series &amp; Autocorrelation</div>
+    <div class="cheat-row"><span class="cheat-name">k-period MA</span><span class="cheat-formula">MAₜ = (Yₜ + ... + Yₜ₋ₖ₊₁) / k</span></div>
+    <div class="cheat-row"><span class="cheat-name">SES forecast</span><span class="cheat-formula">Fₜ₊₁ = α·Yₜ + (1−α)·Fₜ</span></div>
+    <div class="cheat-row"><span class="cheat-name">Holt's Level</span><span class="cheat-formula">Lₜ = α·Yₜ + (1−α)(Lₜ₋₁+Tₜ₋₁)</span></div>
+    <div class="cheat-row"><span class="cheat-name">Holt's Trend</span><span class="cheat-formula">Tₜ = β(Lₜ−Lₜ₋₁) + (1−β)Tₜ₋₁</span></div>
+    <div class="cheat-row"><span class="cheat-name">Holt's Forecast</span><span class="cheat-formula">Fₜ₊ₘ = Lₜ + m·Tₜ</span></div>
+    <div class="cheat-row"><span class="cheat-name">Autocorrelation r₁</span><span class="cheat-formula">Σ(Xₜ−X̄)(Xₜ₋₁−X̄) / Σ(Xₜ−X̄)²</span></div>
+  </div>
+
+</div><!-- /cheat-panel -->
+
+</div><!-- /container -->
+
+<footer>
+  BITS Pilani &nbsp;·&nbsp; AIMLCZC418 / DSECLZC418 &nbsp;·&nbsp; Introduction to Statistical Methods &nbsp;·&nbsp; Complete Formula Reference
+</footer>
+
+</body>
+</html>
