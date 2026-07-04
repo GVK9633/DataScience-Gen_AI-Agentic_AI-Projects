@@ -26,3 +26,7 @@ agentic-AI
 ===============
 https://github.com/ashishpatel26/500-AI-Agents-Projects
 https://agentswarms.fyi/#
+
+production grade rag application
+================================
+https://github.com/d-hackmt/8hr-MARATHON
