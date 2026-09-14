@@ -30,3 +30,18 @@ https://agentswarms.fyi/#
 production grade rag application
 ================================
 https://github.com/d-hackmt/8hr-MARATHON
+
+
+System Design
+==============
+gate Smashers:- https://www.youtube.com/watch?v=B3Vxj1VT9-g&list=PLxCzCOWd7aiHanm1nA5_fMwbx5dCNFkDX
+
+Gen AI (Python & langchain)
+========
+techsimplus- https://www.youtube.com/watch?v=bSK5WC2wG3M&list=PLUhY5ME1VdItcTMnzYakPdYJWorU6IdKk
+repo-https://github.com/techsimpluslearning/Complete-GenAI-Course-Python-Langchain
+
+Fast-api
+========
+techsimplus-https://www.youtube.com/watch?v=cQcg9sG6-rM&list=PLdKd-j64gDcBcn_y97FBt6pw-NzmY--20
+Analytics vidya -https://www.youtube.com/watch?v=cQcg9sG6-rM&list=PLdKd-j64gDcBcn_y97FBt6pw-NzmY--20
