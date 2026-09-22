@@ -45,3 +45,13 @@ Fast-api
 ========
 techsimplus-https://www.youtube.com/watch?v=cQcg9sG6-rM&list=PLdKd-j64gDcBcn_y97FBt6pw-NzmY--20
 Analytics vidya -https://www.youtube.com/watch?v=cQcg9sG6-rM&list=PLdKd-j64gDcBcn_y97FBt6pw-NzmY--20
+
+ADK
+=====
+https://codelabs.developers.google.com/onramp/instructions#6
+https://adk.dev/evaluate/
+code with ashan - https://www.youtube.com/watch?v=8uI7oJckxb8&list=PL2sQdFoGnLIjoGQuK_jF92YOB-9iJAAlW&index=10
+repo - https://github.com/AhsanAyaz/ai-agents-google-adk/blob/main/deploying_agents/deploy.py
+
+adk eval- https://www.youtube.com/watch?v=kJfzjQyshbA
+repo -https://github.com/ai-suyash/genai-youtube/tree/main/tutorials/google-adk/11_adk_evaluation
