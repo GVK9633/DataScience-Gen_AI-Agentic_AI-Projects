@@ -55,3 +55,12 @@ repo - https://github.com/AhsanAyaz/ai-agents-google-adk/blob/main/deploying_age
 
 adk eval- https://www.youtube.com/watch?v=kJfzjQyshbA
 repo -https://github.com/ai-suyash/genai-youtube/tree/main/tutorials/google-adk/11_adk_evaluation
+
+guardrails
+========
+https://www.youtube.com/watch?v=gXLZCCwByu0
+https://www.youtube.com/watch?v=UlvtgT64Dwk
+
+Latancy
+=======
+https://www.youtube.com/watch?v=Hzmn5BOFd1w
