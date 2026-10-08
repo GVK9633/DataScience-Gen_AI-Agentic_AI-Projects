@@ -70,3 +70,18 @@ Projects-gen AI
 https://www.youtube.com/watch?v=bdm110l06ME&list=PLBYdyi7-DjV1sdNYgxzC8Wl_1dkJ13zHy
 
 https://www.youtube.com/watch?v=qZ_J-Xg0QM4&list=PLeo1K3hjS3uvLuF4Tq1i1KqNM2QvIyzFK
+
+GenAI Software Engineer
+AI Application Engineer
+GenAI Developer
+Agentic AI Developer
+AI Automation Engineer
+RAG Developer/Engineer
+.NET + GenAI Developer
+Full Stack + GenAI Engineer
+LLM Application Engineer
+
+Build and Deploy a GenAI App with RAG on AWS Cloud | Step-by-Step Tutorial
+============================
+
+https://www.youtube.com/watch?v=lI_dz50tK9Y&t=259s
