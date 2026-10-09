@@ -85,3 +85,8 @@ Build and Deploy a GenAI App with RAG on AWS Cloud | Step-by-Step Tutorial
 ============================
 
 https://www.youtube.com/watch?v=lI_dz50tK9Y&t=259s
+
+bedrock
+========
+https://www.youtube.com/watch?v=cTBGIKAckKE
+https://www.youtube.com/watch?v=lI_dz50tK9Y&t=259s
