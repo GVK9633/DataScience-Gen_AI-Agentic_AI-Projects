@@ -14,6 +14,8 @@ MCP
 https://www.youtube.com/watch?v=UkITNsHfdyM
 https://www.youtube.com/watch?v=WSVxBc8CS80
 
+python pollution_mcp.py run    
+
 LangGraph
 ==========
 https://github.com/codebasics/langgraph-crash-course
@@ -90,3 +92,4 @@ bedrock
 ========
 https://www.youtube.com/watch?v=cTBGIKAckKE
 https://www.youtube.com/watch?v=lI_dz50tK9Y&t=259s
+https://www.youtube.com/watch?v=kIOjWXZsENY
