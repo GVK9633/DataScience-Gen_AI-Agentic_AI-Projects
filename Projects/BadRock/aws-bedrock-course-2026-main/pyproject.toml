@@ -1,0 +1,15 @@
+[project]
+name = "QnaAgent"
+version = "0.1.0"
+description = "Google Search Agent"
+readme = "README.md"
+requires-python = "==3.12"
+dependencies = [
+    "requests",
+    "langchain-aws",
+    "langchain",
+    "dotenv",
+    "langchain-nimble",
+    "aws-opentelemetry-distro",
+    "bedrock-agentcore"
+]
