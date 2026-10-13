@@ -93,3 +93,11 @@ bedrock
 https://www.youtube.com/watch?v=cTBGIKAckKE
 https://www.youtube.com/watch?v=lI_dz50tK9Y&t=259s
 https://www.youtube.com/watch?v=kIOjWXZsENY
+
+Sql
+=====
+https://www.sql-practice.com/
+
+draw-links
+=======
+https://excalidraw.com/
